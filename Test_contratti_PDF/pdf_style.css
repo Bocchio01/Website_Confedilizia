@@ -1,0 +1,92 @@
+html {
+			/*font-family: 'PT Serif', serif;*/
+			font-family: serif;
+			font-size: 15px;
+			line-height: 1.5;
+		}
+
+		body {
+			text-align: justify;
+		}
+
+		hr {
+			box-sizing: content-box;
+			height: 0;
+			overflow: visible;
+		}
+
+		.hr1 {
+			height: 1px;
+			margin-top: 1px;
+			padding-top: 0px;
+			text-align: center;
+			color: #333;
+			background-color: #333;
+		}
+
+		.hr2 {
+			height: 2px;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+			margin-top: 0px;
+			text-align: center;
+			color: #000;
+			background-color: #000;
+		}
+
+		h3 {
+			text-align: center;
+			padding-bottom: 0px;
+			margin-bottom: 0px;
+		}
+
+		p {
+			text-align: center;
+			padding-top: 0px;
+			margin-top: 0px;
+			font-style: italic;
+		}
+
+		#wrapper {
+        	: center;
+			width: 100%;
+			margin-inline: auto;
+		}
+
+		#wrap {
+			width: 100%;
+			line-height: 1.3;
+			margin-inline: auto;
+		}
+
+		span {
+			border: none;
+			border-bottom: thin dashed #666666;
+			padding-bottom: 0;
+			outline: none;
+			font-weight: bold;
+			padding-left: 0px;
+			padding-right: 0px;
+			margin-left: 0px;
+			margin-right: 0px;
+			display: inline !important;
+			min-height: 20px !important;
+			min-width: 100px;
+			-webkit-user-modify: read-write;
+			-moz-user-modify: read-write;
+			user-modify: read-write;
+
+		}
+
+		.nascosto {
+			display: none !important;
+		}
+        
+        div {
+        	text-align: center;
+        	text-align: justify;
+        }
+        
+        button {
+        	display: none;
+        }
