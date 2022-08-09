@@ -1,2 +1,7 @@
-Test_contratti_PDF/dompdf_1-0-2.zip
-conn.php
+*.zip
+/_lib*
+/_dumpDB
+/_fonts*
+/Test_contratti_PDF*
+/File_download*
+/_old*
