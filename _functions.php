@@ -45,8 +45,7 @@ function render(string $script, array $vars = array(), bool $loadStyle = FALSE)
     extract($vars);
 
     if ($loadStyle) {
-        $style = file_get_contents('http://www.confediliziacomo.it/style.css');
-        $style .= file_get_contents(HOST_SITE . '/template/site/_style.css',);
+        $style = file_get_contents('./template/site/_style.css',);
     }
 
     ob_start();
@@ -98,15 +97,15 @@ function updateInteractions()
 function logError(string $sql, string $error): void
 {
     error_log(
-        $logMsg = implode("\n", array("###" . date(DATE_RSS), print_r(get_defined_vars(), true))),
+        $logMsg = implode("\n", array("\n\n\n" . date(DATE_RSS), print_r(get_defined_vars(), true))),
         3,
-        './_log.txt'
+        './.log'
     );
 
     sendEmail(array(
         'email'   => EMAIL['MASTER'],
         'subject' => "Errore durante l'elaborazione di una Query",
-        'msg'     =>  '<a href="' . HOST_SITE . '/_log.txt' . '">Link to log file!</a>',
+        'msg'     =>  '<a href="' . HOST_SITE . '/.log' . '">Link to log file!</a>',
         'headers' => "From: no-reply." . EMAIL['MASTER'],
     ));
 }
@@ -125,7 +124,7 @@ function parseEmail(string $email): string
 
 function sendEmail(array $args, bool $throwException = TRUE): bool
 {
-    if (!mail($args['email'], $args['subject'], $args['msg'], $args['headers']) && $throwException && !IS_DEV) {
+    if ($throwException && !IS_DEV && !mail($args['email'], $args['subject'], $args['msg'], $args['headers'])) {
         throw new Exception("Errore durante l'invio della email. Riprovare più tardi...");
     }
 

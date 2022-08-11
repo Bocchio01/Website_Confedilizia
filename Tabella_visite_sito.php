@@ -1,9 +1,9 @@
 <?php
 
-include "./_settings.php";
+include_once "./_settings.php";
 updateInteractions();
 
-include "_isAdmin.php";
+include_once "./_isAdmin.php";
 
 
 require_once './_lib/phplot-6.2.0/phplot.php';
@@ -73,7 +73,10 @@ $graphOnly = array();
 $dataOnly = array();
 
 $fromYear = empty($_GET['fromYear']) ? 2022 : $_GET['fromYear'];
+$byName = array(4);
 
+
+// Selling table
 $table = array();
 $table[0]['title'] = 'Statistiche vendite totali dal 2020';
 
@@ -99,15 +102,15 @@ $table[0]['body'][0] = array(
 );
 
 
-
+// Selling graph
 for ($i = $fromYear; $i <= $currentYear; $i++) {
     if ($i == $currentYear) $nMonth = $currentMonth;
     else $nMonth = 12;
 
     for ($j = 0; $j <= $nMonth; $j++) {
 
-        $Illimitati = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed FROM Illimitata_data WHERE MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
-        $Demo = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo FROM Demo_data WHERE MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+        $Illimitati = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed FROM Illimitata_data WHERE YEAR(dateRequest) = $i AND MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+        $Demo = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo FROM Demo_data WHERE YEAR(dateRequest) = $i AND MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
 
         $example_data[] = array(
             $j + 1 . '-' . $i,
@@ -127,17 +130,7 @@ $data['title'] = 'Andamento vendite';
 $graphOnly[] = $data;
 
 
-
-$example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito");
-$data['graph'] = DefaultGraph($example_data);
-$data['graph']->SetYTitle('Numero visite per mese');
-$data['graph']->DrawGraph();
-$data['title'] = 'Andamento generale del sito';
-
-$example_data = null;
-$graphOnly[] = $data;
-
-
+// Visit from pages in byName array
 if (!empty($byName)) {
     foreach ($byName as $number => $id) {
         $example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito WHERE id = $id");
@@ -152,6 +145,18 @@ if (!empty($byName)) {
         $graphOnly[] = $data;
     }
 }
+
+
+// Sum all visit
+$example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito");
+$data['graph'] = DefaultGraph($example_data);
+$data['graph']->SetYTitle('Numero visite per mese');
+$data['graph']->DrawGraph();
+$data['title'] = 'Andamento generale del sito';
+
+$example_data = null;
+$graphOnly[] = $data;
+
 
 
 $conn->close();
@@ -218,6 +223,9 @@ returndata(0, "Connection with MySQL database closed");
 </head>
 
 <body>
+    <a href="/">
+        <h1>Prospetto di calcolo</h1>
+    </a>
     <h2>Visite sito</h2>
     <form action="" method="GET" class="card" style="width: min-content; margin-inline:auto; text-align:center">
         <label for="fromYear">Anno di partenza visualizzazione:</label>
@@ -260,7 +268,7 @@ returndata(0, "Connection with MySQL database closed");
         <?php foreach ($graphOnly as $data) : ?>
             <div class="card graph">
                 <h2><?php echo $data['title'] ?></h2>
-                <img src="<?php echo $data['graph']->EncodeImage() ?>" alt=<?php echo $data['title'] ?>>
+                <img src="<?php echo $data['graph']->EncodeImage() ?>" alt=<?php echo $data['title'] ?> loading="lazy">
             </div>
         <?php endforeach; ?>
 

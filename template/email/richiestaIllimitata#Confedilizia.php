@@ -14,7 +14,7 @@
     </ul>
     <p>
         Se hai bisogno di scrivergli, questa è la sua e-mail: <a href="mailto:<?php echo $email ?>"><?php echo $email ?></a><br>
-        Ricordati che per attivare la licenza, dovrai andare <a href="<?php echo HOST_SITE ?>/Tabella_controllo_licenze.php?api_key=" <?php echo API_KEY ?>>a questo sito</a><br>
+        Ricordati che per attivare la licenza, dovrai andare <a href="<?php echo HOST_SITE ?>/Tabella_controllo_licenze.php?api_key=<?php echo API_KEY ?>">a questo sito</a><br>
         Mi raccomando, attivala solo se hai ricevuto il pagamento!
     </p>
 

@@ -1,46 +1,301 @@
+.Menu_Principale {
+  font-family: Verdana, Arial;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  color: #bb3300;
+}
+a:link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #bb3300;
+  font-family: Verdana, Arial;
+  font-weight: bold;
+}
+a:visited {
+  text-decoration: none;
+  color: #bb3300;
+}
+a:hover {
+  font-size: 14px;
+  color: black;
+  background-color: yellow;
+}
+a:active {
+  text-decoration: none;
+  background-color: #bb3300;
+  color: black;
+}
+
+body {
+  font-size: 80%;
+  font-family: Verdana, Arial;
+  color: black;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  background: url(./assets/Logo2.jpg);
+}
+
+h1 {
+  font: italic 900 4em/1em georgia, serif;
+  color: #222;
+  text-align: center;
+  display: block;
+  margin: 0px 0 0 0;
+  border-top: 5px double #555;
+  border-bottom: 3px solid #555;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+h2 {
+  font: italic 900 1.5em/1em verdana, helvetica, sans-serif;
+  color: #000;
+  display: block;
+  margin: 5px 0;
+  text-align: right;
+  padding-right: 30px;
+}
+
+h3 {
+  font: italic 900 1.2em/1em Verdana, Arial, sans-serif;
+  color: #000;
+  display: block;
+  text-align: center;
+}
+
+h4 {
+  font: 13px/14px Arial, Verdana, sans-serif;
+  color: black;
+  text-align: justify;
+  margin: 2px 0px 1px;
+  width: 720px;
+}
+
+h5 {
+  font: normal 13px/14px Arial, Verdana, sans-serif;
+  color: Yellow;
+  text-align: center;
+  margin: 2px 0px 1px;
+  width: 720px;
+}
+
+#corpo {
+  background-color: #ddd;
+}
 
 #articolo {
-	margin-inline: 0px;
+  font: 1.3em georgia, Arial;
+  color: black;
+  margin: 0px 30px 0px 30px;
+  padding-bottom: 1em;
 }
 
-input:not([type="submit"]), select {
-    padding: 5px;
-	border-radius: 4px;
-    border: 4px solid #bb3300;
-    color: #333;
-    width: 300px;
-    outline: none;
+#articolo p {
+  text-indent: 2em;
+  text-align: justify;
 }
 
-input[type="submit"] {
-    font-size: x-large;
-    padding: 5px;
-	border-radius: 4px;
-    background-color: #bb320046;
-    cursor: pointer;
+#articolo p:first-letter {
+  font-weight: bold;
 }
 
-input[type="submit"]:hover {
-    color:black;
-    border: 4px solid #bb3300;
+#articolo blockquote {
+  width: 20%;
+  font: 0.7em/2em verdana, sans-serif;
+  word-spacing: 0.2em;
+  padding: 2.5em 1em;
+  margin: 0 0 2em 2em;
+  border: 1px solid #990000;
+  float: right;
+}
+
+#articolo div.immagine {
+  padding: 7px;
+  font: 0.7em verdana, sans-serif;
+  margin: 15px 15px 10px 0px;
+  border: 1px solid #990000;
+  float: left;
+}
+#articolo div.immagine img {
+  border: 10px solid white;
+  display: block;
+}
+
+#articolo div.immagined {
+  padding: 7px;
+  font: 0.7em verdana, sans-serif;
+  margin: 15px 0px 10px 15px;
+  border: 1px solid #001f88;
+  float: right;
+}
+
+#articolo div.immagined img {
+  border: 10px solid white;
+  display: block;
+}
+
+#articolo1 {
+  width: 600px;
+  background-color: white;
+  font: 1em georgia, Arial;
+  color: black;
+  margin: 0 30px 0px 30px;
+  padding: 1em;
+}
+
+#articolo1 p {
+  text-align: justify;
+}
+
+#foto {
+  font-size: 16px;
+  margin: 0px 0px 0px 0px;
+  background: Black url(Retinato.gif);
+  font-family: Verdana;
+}
+
+#foto div.imma {
+  width: 100%;
+  background: Black url(Retinato.gif);
+  font: 16px Verdana;
+  margin: 0px 0px 0px 0px;
+  padding-bottom: 5px;
+}
+
+#foto div.immax img {
+  border: 6px solid white;
+}
+
+#foto div.imma img {
+  border: 10px solid white;
+  display: block;
+  margin-top: 5px;
+}
+
+#foto1 {
+  font: 0.5em Verdana;
+  color: white;
+  margin: 0px 0px 0px 0px;
+  padding-bottom: 0em;
+}
+
+#foto1 div.imma1 {
+  width: 100%;
+  padding: 30px;
+  font: 0.5em Verdana;
+  margin: 0px 0px 0px 0px;
+  background: transparent;
+}
+
+#foto1 div.imma1 img {
+  border: 10px solid white;
+  display: block;
+  padding-bottom: 0px;
+}
+
+#foto2 {
+  margin: 0px 0px 0px 0px;
+  padding-bottom: 0em;
+  background: Black;
+}
+
+#foto3 {
+  font: 0.5em Verdana;
+  margin: 0px 0px 0px 0px;
+  padding-bottom: 0px;
+  background: url(Retinato.gif);
+}
+
+#foto3 div.imma2 {
+  width: 100%;
+  padding: 10px;
+  font: 0.5em Verdana;
+  margin: 0px 0px 0px 0px;
+  background: url(Retinato.gif);
+}
+
+#foto3 div.imma2 img {
+  padding-bottom: 0px;
+}
+
+#testa {
+  text-align: center;
+  font: italic 900 1.5em/0px Verdana, Arial, sans-serif;
+  border-top-color: White;
+  border-top-style: solid;
+  border-top-width: thin;
+  border-left-color: White;
+  border-left-style: solid;
+  border-left-width: thin;
+  border-right-color: White;
+  border-right-style: solid;
+  border-right-width: thin;
+  border-bottom-color: White;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+}
+
+#piede {
+  text-align: right;
+  font-weight: bold;
+  background-color: #efefef;
+  font: italic 900 1.5em/28px Verdana, Arial, sans-serif;
+  padding-right: 30px;
+  border-top-color: White;
+  border-top-style: solid;
+  border-top-width: thin;
+  border-bottom-color: White;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+}
+
+#articolo {
+  margin-inline: 0px;
+}
+
+input:not([type='submit']),
+select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 4px solid #bb3300;
+  color: #333;
+  width: 300px;
+  outline: none;
+}
+
+input[type='submit'] {
+  font-size: x-large;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #bb320046;
+  cursor: pointer;
+}
+
+input[type='submit']:hover {
+  color: black;
+  border: 4px solid #bb3300;
 }
 
 .intestazione_piccolo {
-	font-size: medium;
-	font-family: Arial, Helvetica, sans-serif;
-	color: black !important;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black !important;
 }
 
 .intestazione_grande {
-	font-size: xx-large;
-	font-family: Arial, Helvetica, sans-serif;
-	color: black;
+  font-size: xx-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
 }
 
 /* Style_tabelle.css */
-td,th {
-    text-align: center;
+td,
+th {
+  text-align: center;
 }
 #separatore {
-    border: 0px;
+  border: 0px;
 }

@@ -1,5 +1,5 @@
 <tr>
-    <td><img src="Img\Logo0.jpg" title="Confedilizia Como e Castel Baradello"></td>
+    <td><img src="./assets/Logo0.jpg" title="Confedilizia Como e Castel Baradello" loading="lazy"></td>
 </tr>
 <tr>
     <td height="30">
@@ -20,7 +20,7 @@
 </tr>
 <tr>
     <td>
-        <a href="./Scelta_programma.php">
+        <a href="/">
             <h1><?php echo $title ?></h1>
         </a>
         <h2><?php echo $subtitle ?></h2>

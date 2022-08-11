@@ -1,8 +1,8 @@
-*.zip
-/_lib*
+.*
+**protected
+
+/_lib
 /_dumpDB
-/_fonts*
-/Test_contratti_PDF*
-/File_download*
-/_old*
-_env.php
+/_fonts
+/_test
+/_old

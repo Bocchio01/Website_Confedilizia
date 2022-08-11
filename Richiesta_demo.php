@@ -1,6 +1,6 @@
 <?php
 
-include "_settings.php";
+include_once "./_settings.php";
 updateInteractions();
 
 

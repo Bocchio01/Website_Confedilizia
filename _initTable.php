@@ -1,5 +1,5 @@
 <?php
-include "_settings.php";
+include_once "./_settings.php";
 
 $sql = array();
 
@@ -64,14 +64,15 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Illimitata_data (
 
 
 
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Indice_controllo')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Tabella_tutti_utenti')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Tabella_controllo_licenze')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Scelta_programma')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Richiesta_demo')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Richiesta_illimitata')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Download_demo')";
-$sql[] = "INSERT INTO Visite_sito (pageName) VALUES ('Download_illimitata')";
+$sql[] = "INSERT INTO Visite_sito (pageName) VALUES
+('Indice_controllo'),
+('Tabella_tutti_utenti'),
+('Tabella_controllo_licenze'),
+('Scelta_programma'),
+('Richiesta_demo'),
+('Richiesta_illimitata'),
+('Download_demo'),
+('Download_illimitata')";
 
 
 

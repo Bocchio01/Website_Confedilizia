@@ -1,7 +1,7 @@
 <?php
 
-include_once "_env.php";
-include_once "_functions.php";
+include_once "./_env.php";
+include_once "./_functions.php";
 
 // Variables
 $return_obj = new stdClass();

@@ -1,9 +1,9 @@
 <?php
 
-include "_settings.php";
+include_once "./_settings.php";
 updateInteractions();
 
-include "_isAdmin.php";
+include_once "./_isAdmin.php";
 
 
 $datas = array();
@@ -31,6 +31,9 @@ returndata(0, "Connection with MySQL database closed");
 </head>
 
 <body>
+    <a href="/">
+        <h1>Prospetto di calcolo</h1>
+    </a>
     <?php foreach ($datas as $nameTable => $data) : ?>
         <h2> <?php echo $nameTable ?></h2>
         <table>

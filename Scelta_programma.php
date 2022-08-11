@@ -1,7 +1,8 @@
 <?php
 
-include "_settings.php";
+include_once "./_settings.php";
 updateInteractions();
+
 
 $conn->close();
 returndata(0, "Connection with MySQL database closed");
@@ -40,11 +41,11 @@ returndata(0, "Connection with MySQL database closed");
                                                                 <li>La probabilità di commettere errori di calcolo si riduce a zero.</li><br>
                                                                 <li>Possibilità di esportare il prospetto come documento PDF.</li><br>
                                                                 <li>Possibilità di stampare il prospetto in maniera ordinata e chiara.</li>
-                                                                <br><br><br>Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="./Img/Esempio_PDF.pdf">Esempio PDF</a>
+                                                                <br><br><br>Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="./assets/Esempio_PDF.pdf">Esempio PDF</a>
                                                             </ul>
                                                         </td>
                                                         <td>
-                                                            <div><iframe style="height: 370px; width: 370px;" src="./Img/Video_excel.mp4"></iframe></div>
+                                                            <div><iframe style="height: 370px; width: 370px;" src="./assets/Video_excel.mp4" loading="lazy"></iframe></div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -52,6 +53,7 @@ returndata(0, "Connection with MySQL database closed");
                                         </td>
                                     </tr>
                                     <tr>
+                                        <!-- <td><b><br><br>Scegli la versione che desideri ottenere:</b></td> -->
                                         <td><b><br><br>Ottieni il software:</b></td>
                                     </tr>
                                 </tbody>
@@ -61,6 +63,7 @@ returndata(0, "Connection with MySQL database closed");
                                     <tr>
                                         <td style="text-align: left;">
                                             <ul>
+                                                <!-- <li><a href="./Richiesta_demo.php">Versione demo (Gratuita):</a> consente un utilizzo del software completo per 7 giorni.</li><br> -->
                                                 <li><a href="./Richiesta_illimitata.php">Versione illimitata (Costo: €. <?php echo $swPrice; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
                                             </ul>
                                         </td>
