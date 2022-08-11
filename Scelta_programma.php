@@ -61,7 +61,7 @@ returndata(0, "Connection with MySQL database closed");
                                     <tr>
                                         <td style="text-align: left;">
                                             <ul>
-                                                <li><a href="./Richiesta_illimitata.php">Versione illimitata (Costo: €. <?php echo $costo; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
+                                                <li><a href="./Richiesta_illimitata.php">Versione illimitata (Costo: €. <?php echo $swPrice; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -69,7 +69,7 @@ returndata(0, "Connection with MySQL database closed");
                                         <td>
                                             Requisiti del sistema: Microsoft Excel 2010 o versioni successive<br>
                                             <b>Non compatibile</b> con: OpenOffice, dispositivi mobile (telefoni e/o tablet)<br>
-                                            <br>Per assistenza tecnica, contattare <a href="mailto:attestazioniaffitti@gmail.com" class="intestazione_piccolo"><b>attestazioniaffitti@gmail.com</b></a>
+                                            <br>Per assistenza tecnica, contattare <a href="mailto:<?php echo EMAIL['MASTER'] ?>" class="intestazione_piccolo"><b><?php echo EMAIL['MASTER'] ?></b></a>
                                         </td>
                                     </tr>
                                 </tbody>

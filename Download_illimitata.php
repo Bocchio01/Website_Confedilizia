@@ -5,19 +5,12 @@ updateInteractions();
 
 
 if (isset($_POST["submit"])) {
-    $result = Query("SELECT id, tokenIllimitato, downloadIllimitato, numeroLicenze FROM Utenti_prospetto WHERE tokenIllimitato = '$_POST[tokenDemo]' LIMIT 1");
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-
-        if ($row["downloadIllimitato"] < $row["numeroLicenze"]) {
-            Query("UPDATE Utenti_prospetto SET downloadIllimitato = downloadIllimitato+1 WHERE id = $row[id]");
-            header("Location: ./File_download/Prospetto_di_calcolo_illimitato.xlsm");
-        } else {
-            if ($row["numeroLicenze"] == 1) echo "<script type = 'text/javascript'>alert('Ha già scaricato la licenza!');</script>";
-            else echo "<script type = 'text/javascript'>alert('Ha già scaricato tutte le licenze!');</script>";
-        }
-    } else echo "<script type = 'text/javascript'>alert('Il tokenDemo inserito è sbagliato!');</script>";
+    try {
+        addDownload("Illimitata", $_POST['token']);
+        fileDownload(FILE_DOWNLOAD['ILLIMITATO']);
+    } catch (Exception $e) {
+        alert($e->getMessage());
+    }
 }
 
 
@@ -44,7 +37,7 @@ returndata(0, "Connection with MySQL database closed");
                             <table width="100%">
                                 <tbody>
                                     <tr>
-                                        <td><b>Inserisci qui il tokenDemo ricevuto per e-mail.</b></td>
+                                        <td><b>Inserisci qui il codice ricevuto per e-mail.</b></td>
                                     </tr>
                                     <tr>
                                         <td><br>Salva il file sul tuo computer. Avrai cosi ottenuto il programma in versione illimitata.<br></td>
@@ -59,8 +52,8 @@ returndata(0, "Connection with MySQL database closed");
                                                 <ul style="height: 68px;">
                                                     <br>
                                                     <li>
-                                                        <label style="padding-right:2em">Inserisci il tokenDemo: </label>
-                                                        <input type="text" name="tokenDemo" id="tokenDemo" required="required" placeholder="Es. 2gHjk53JFt">
+                                                        <label style="padding-right:2em">Inserisci il codice: </label>
+                                                        <input type="text" name="token" id="token" required="required" placeholder="Es. 2gHjk53JFt">
                                                     </li>
                                                 </ul>
                                             </td>

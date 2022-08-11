@@ -5,21 +5,29 @@ updateInteractions();
 
 
 if (isset($_POST["submit"])) {
-    $codice_rand = CreateToken(10);
-    $email = strtolower($_POST["email"]);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) echo "<script type = 'text/javascript'>alert('Formato e-mail non corretto.');</script>";
-    else {
-        if ($conn->query("INSERT INTO Utenti_prospetto (ragioneSociale, email, tokenDemo) VALUES ('$_POST[ragioneSociale]','$email','$codice_rand')")) {
-            echo "<script type = 'text/javascript'>alert('Richiesta effettuata con successo! Controlla la tua casella e-mail');</script>";
-            $message = render(
-                './template/email/richiestaDemo.php',
-                array(
-                    'ragioneSociale' => $_POST['ragioneSociale'],
-                    'codice_rand'    => $codice_rand
-                )
-            );
-            mail($email, $subject, $message, $headers);
-        } else echo "<script type = 'text/javascript'>alert('Hai gia richiesto il software con la stessa email. Operazione bloccata!');</script>";
+    try {
+        $valueArray = array(
+            'email'         => parseEmail($_POST["email"]),
+            'nameCompany'   => $_POST['nameCompany'],
+            'token'         => CreateToken(10),
+            'nLicences' => 1,
+        );
+
+        $mailArray = array(
+            'email'   => $valueArray['email'],
+            'subject' => $subject,
+            'msg'     => render('./template/email/richiestaDemo.php', $valueArray),
+            'headers' => $headers
+        );
+
+        addUser($valueArray);
+        addOrder("Demo", getUserId($valueArray['email']), $valueArray);
+
+        sendEmail($mailArray);
+
+        alert('Richiesta effettuata con successo! Controlla la tua casella e-mail');
+    } catch (Exception $e) {
+        alert($e->getMessage());
     }
 }
 
@@ -60,9 +68,9 @@ returndata(0, "Connection with MySQL database closed");
                                                         <td style="text-align: left;">
                                                             <ul>
                                                                 <br>
-                                                                <li><label style="padding-right:7em">Ragione sociale:</label>&nbsp;<input type="text" name="ragioneSociale" id="ragioneSociale" required="required" placeholder="Es. Confedilizia Como"></li>
+                                                                <li><label style="padding-right:7em">Ragione sociale:</label>&nbsp;<input type="text" name="nameCompany" id="nameCompany" required="required" placeholder="Es. Confedilizia Como"></li>
                                                                 <br>
-                                                                <li><label style="padding-right:2em">Email agenzia/associazione:</label><input type="text" name="email" id="email" required="required" placeholder="Es. info@confediliziacomo.it"></li>
+                                                                <li><label style="padding-right:2em">Email agenzia/associazione:</label><input type="text" name="email" id="email" required="required" placeholder="Es. <?php echo EMAIL['CONFEDILIZIA'] ?>"></li>
                                                             </ul>
                                                         </td>
                                                         <td align="center"><input style="margin-top: 20px;" class="submit" type="submit" value=" Invia " name="submit"></td>
