@@ -1,216 +1,270 @@
+<?php
+
+include "./_settings.php";
+updateInteractions();
+
+include "_isAdmin.php";
+
+
+require_once './_lib/phplot-6.2.0/phplot.php';
+
+
+function DefaultGraph($data, $type = 'linepoints')
+{
+    $plot = new PHPlot();
+
+    $plot->SetFailureImage(False);
+    $plot->SetPrintImage(False);
+    $plot->SetDataValues($data);
+    $plot->SetPlotType($type);
+    $plot->SetBackgroundColor('#fdfdff');
+    $plot->SetTransparentColor('#fdfdff');
+    $plot->SetFontGD('x_label', 3);
+    $plot->SetFontGD('y_label', 3);
+    $plot->SetFontGD('generic', 3);
+    $plot->SetFontGD('y_title', 4);
+    $plot->SetFontGD('x_title', 4);
+    $plot->SetPointShapes('dot');
+    $plot->SetLineStyles('solid');
+
+    // $plot->SetXLabelType('time');
+    $plot->SetXTickLabelPos('none');
+    $plot->SetXTickPos('none');
+    $plot->SetLineWidths(3);
+    // $plot->SetYTickIncrement(1);
+
+
+    return $plot;
+}
+
+
+function graphAndData(String $query)
+{
+
+    global $fromYear, $currentYear, $currentMonth;
+
+    $idArray = Query($query)->fetch_array(MYSQLI_ASSOC)['idArray'];
+
+    for ($i = $fromYear; $i <= $currentYear; $i++) {
+        if ($i == $currentYear) $nMonth = $currentMonth;
+        else $nMonth = 12;
+
+        for ($j = 0; $j <= $nMonth; $j++) {
+
+            $row = Query("SELECT SUM(JSON_EXTRACT(`$i`, '$[$j]')) AS numberVisitsMonth FROM Visite_sito WHERE id IN ($idArray)")->fetch_array(MYSQLI_ASSOC);
+
+            $example_data[] = array(
+                $j + 1 . '-' . $i,
+                $row['numberVisitsMonth'],
+            );
+        }
+    }
+
+    return $example_data;
+}
+
+
+
+$currentYear = (int) date("Y");
+$currentMonth = (int) date("m") - 1;
+
+$graphAndData = array();
+$graphOnly = array();
+$dataOnly = array();
+
+$fromYear = empty($_GET['fromYear']) ? 2022 : $_GET['fromYear'];
+
+$table = array();
+$table[0]['title'] = 'Statistiche vendite totali dal 2020';
+
+$Illimitati = Query("SELECT
+                    SUM(IF(hasPayed = 0, nLicences, 0)) AS numNotPayed,
+                    SUM(IF(hasPayed = 0, nLicences * priceEach, 0)) AS notPayed,
+                    SUM(IF(hasPayed = 1, nLicences, 0)) AS numPayed,
+                    SUM(IF(hasPayed = 1, nLicences * priceEach, 0)) AS payed
+                FROM Illimitata_data");
+$Demo = Query("SELECT  SUM(nLicences) AS demo FROM Demo_data")->fetch_array(MYSQLI_ASSOC)['demo'];
+
+$row = $Illimitati->fetch_array(MYSQLI_ASSOC);
+
+$table[0]['head'] = array(
+    'Licenze pagate',
+    'Licenze non pagate',
+    'Demo',
+);
+$table[0]['body'][0] = array(
+    $row['numPayed'] . " => " . $row['payed'] . "€",
+    $row['numNotPayed'] . " => " . $row['notPayed'] . "€",
+    $Demo,
+);
+
+
+
+for ($i = $fromYear; $i <= $currentYear; $i++) {
+    if ($i == $currentYear) $nMonth = $currentMonth;
+    else $nMonth = 12;
+
+    for ($j = 0; $j <= $nMonth; $j++) {
+
+        $Illimitati = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed FROM Illimitata_data WHERE MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+        $Demo = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo FROM Demo_data WHERE MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+
+        $example_data[] = array(
+            $j + 1 . '-' . $i,
+            (int) $Illimitati['reqPayed'],
+            (int) $Illimitati['reqNotPayed'],
+            (int) $Demo['reqDemo'],
+        );
+    }
+}
+
+$data['graph'] = DefaultGraph($example_data);
+$data['graph']->SetYTitle('Andamento vendite');
+$data['graph']->SetLegend(array('Pagate', 'Non pagate', 'Demo'));
+$data['graph']->DrawGraph();
+$data['title'] = 'Andamento vendite';
+
+$graphOnly[] = $data;
+
+
+
+$example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito");
+$data['graph'] = DefaultGraph($example_data);
+$data['graph']->SetYTitle('Numero visite per mese');
+$data['graph']->DrawGraph();
+$data['title'] = 'Andamento generale del sito';
+
+$example_data = null;
+$graphOnly[] = $data;
+
+
+if (!empty($byName)) {
+    foreach ($byName as $number => $id) {
+        $example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito WHERE id = $id");
+
+        $data['graph'] = DefaultGraph($example_data);
+        $data['graph']->SetYTitle('Numero visite per mese');
+        $data['graph']->DrawGraph();
+
+        $data['title'] = Query("SELECT pageName FROM Visite_sito WHERE id = $id")->fetch_array(MYSQLI_ASSOC)['pageName'];
+
+        $example_data = null;
+        $graphOnly[] = $data;
+    }
+}
+
+
+$conn->close();
+returndata(0, "Connection with MySQL database closed");
+?>
+
+
 <!DOCTYPE html>
 <html lang="it">
+
+<?php echo render('./template/site/head.php', array('title' => 'Tabella visite sito'), 1); ?>
+
 <head>
-<link rel="stylesheet" href="Style_tabelle.css">
+    <style>
+        @import url(<?php echo HOST_SITE ?>/template/site/_style_table.css);
+
+        main {
+            display: flex;
+            align-items: flex-start;
+            flex-basis: initial;
+            align-items: stretch;
+        }
+
+        .data {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            align-content: flex-start;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .card {
+            box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.4);
+            margin: 15px;
+            border-radius: 0.5em;
+            background-color: #fdfdff;
+            padding: 2em;
+            overflow: auto;
+        }
+
+        hr {
+            margin-block: 20px;
+            margin-inline: 1em;
+        }
+
+        .graph-container {
+            display: flex;
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+            overflow: auto;
+        }
+
+        .graph-container>.card {
+            overflow: initial;
+        }
+
+        table {
+            max-width: unset;
+        }
+    </style>
 </head>
-	<body>
-	    <title>Statistiche del sito vendita prospetto</title>
-	    <h1 style="text-align:center; margin-bottom:0px;">Numeri del sito</h1>
-        <h3 style="text-align:center; margin-top:0px;">!L'ultimo record è rispetto alle 23:59 di domenica scorsa!</h3>
-	    <meta charset="UTF-8">
-	    <meta name="author" content="Lo sviluppatore T.B.">
-	    <table align="center" border="2" cellpadding="10" cellspacing="10">
-	    	<tbody>
-        	    <tr>
-	    	    	<th>Settimana dal (00:00 Lunedi - 23:59 Domenica)</th>
-                    <th style="border:0px;"></th>
-                    <th>Visite Scelta_programma</th>
-	    	        <th>N. vendite (pagate)</th>
-                    <th style="border:0px;"></th>
-                    <th>Totale_visitatori</th>
-					<th>Incremento_visitatori</th>
-	    	    </tr>
-	    	    <?php 
-	    	    include "conn.php";
-                $result = $connessione->query("SELECT id FROM Visite_sito");
-				if($result->num_rows > 0) 
-				{
-				    while($row = $result -> fetch_array(MYSQLI_ASSOC))
-				    {
-				        $max_line=$row['id'];
-				    }
-				} 
-	    	    $tot=0;
-        	    $contatore=-1;
-        	    $max=-1;
-	    	    if (!$result = $connessione->query("SELECT * FROM Visite_sito ")) {
-			        echo "Errore della query: " . $connessione->error . ".";
-			        exit(); }
-	    	    else
-	    	        if($result->num_rows > 0)
-	    	            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
-        	            if ($row["id"]!=$max_line){
-                        $contatore=$contatore+1;
-	    	            $tot=$tot+$row['Scelta_programma'];
-                        $ultimo_scelta_programma=$row['Scelta_programma'];?>
-	    	            <tr>
-	    	                <td><?php echo $row['Data_salvataggio'] ?></td>
-                            <th style="border:0px;"></th>
-	    	                <td><?php echo $row['Scelta_programma'] ?></td>
-	    	                <td><?php echo $row['Vendite'] ?></td>
-                            <th style="border:0px;"></th>
-	    	                <td><?php echo $row['Somma_visite'] ?></td>
-	    	                <td><?php echo $row['Percentuale_incremento'];?>%</td>
-	    	            </tr>
-	    	    <?php
-				$date= date('d/M/Y', strtotime($row['Data_salvataggio']));
-        	    $array=[$date, $row['Scelta_programma']];
-                $array1=[$date, $row['Vendite']];
-        	    $dati[$contatore]=$array; 
-                $dati1[$contatore]=$array1; 
-        	    if ($row['Scelta_programma']>$max)
-        	    	{
-        	        	$max=$row['Scelta_programma'];
-        	        }
-        	    }}
-                $media_visite=$tot/($contatore+1);
-                $percentuale=(($ultimo_scelta_programma/$media_visite)-1)*100;
-	    	    if ($media_visite<=$ultimo_scelta_programma) {?>
-	    	    	<p style="text-align: center;">La pagina principale del sito è stata aperta <?php echo $ultimo_scelta_programma ?> volte questa settimana.<br>La media settimanale è di <?php echo round($media_visite, 2) ?> visite, e il sito è in crescita: +<?php echo round($percentuale, 0) ?>%</p>
-	    	    <?php } else {?>
-	    	    	<p style="text-align: center;">La pagina principale del sito è stata aperta <?php echo $ultimo_scelta_programma ?> volte questa settimana.<br>La media settimanale è di <?php echo round($media_visite, 2) ?> visite, ma il sito è in decrescita: <?php echo round($percentuale, 0) ?>%</p>
-	    	    <?php }	
-	    	    
-	    	    
-	    	    $result->close(); 
-	    	    $connessione->close();?>
-			</tbody>
-		</table>
-        <br><br>
-        <?php
-		include "conn.php";
-		include "prezzi.php";
-        $vend=0;
-        $vend_attesa=0;
-        $result = $connessione->query("SELECT codiceL,N_licenze FROM Utenti_prospetto");
-		while ($row = $result -> fetch_array(MYSQLI_ASSOC))
-			{ 
-    	    	$vend_attesa=$vend_attesa+$row["N_licenze"];
-                if ($row["codiceL"]!=NULL)
-                	$vend=$vend+$row["N_licenze"];
-    	    }
-        $result->close(); 
-	    $connessione->close();?>
-        
-		<div style="text-align:center;">
-        	<script>document.write('<img src="Visite_sito_grafico.gif?r='+Math.random()+'">');</script>
-            <script>document.write('<img <? if($contatore>8) echo 'style="padding-top:50px;'; else echo 'style="padding-left:100px;'; ?>" src="Vendite_grafico.gif?r='+Math.random()+'">');</script>
-		</div>
-        <br><br>
-        <h1 style="text-align:center; margin-bottom:0px;">Numeri vendite / incassi totali</h1>
-        <h3 style="text-align:center; margin-top:0px;">!Aggiornati in tempo reale!</h3>
-        <table align="center" border="2" cellpadding="10" cellspacing="10">
-	    	<tbody>
-        	    <tr>
-                	<th>Totale vendite (pagate)</th>
-                    <th style="border:0px;"></th>
-                    <th>Totale incasso ad oggi</th>
-                    <th style="border:0px; width:100px; padding:0px; font-size:xx-large;">|</th>
-                    <th>Vendite in attesa</th>
-                    <th style="border:0px;"></th> 
-                    <th>Futuro ulteriore incasso</th>
-                </tr>
-                <tr>
-	    	        <td><?php echo $vend ?></td>
-                    <td style="border:0px;">=</td>
-                    <td ><?php echo $vend*$costo_iva ?>.00€</td>
-                    <th style="border:0px; width:100px; padding:0px; font-size:xx-large;">|</th>
-                    <td ><?php echo $vend_attesa-$vend?></td>
-                    <td style="border:0px;">=</td>
-                    <td ><?php echo ($vend_attesa-$vend)*$costo_iva ?>.00€</td>
-                </tr>
-             </tbody>
-		</table>
-	    <?php
-		include("phplot.php");
-		
-		$title_X="Settimana dal (Lunedi 00:00 - Domenica 23:59)";
-		$title_Y="Numero di visite";
-		
-        $larg=400;
-		$alte=400;
-        if ($contatore>2)
-        	{
-            	$larg=50+$contatore*100;
-            }
-        if ($max>11)
-        	{
-            	$alte=$max*38;
-                if ($alte>800)
-                	{
-                    	$alte=800;
-                    }
-            }
-        
-		$graph = new PHPlot($larg, $alte);
-		
-		$graph->SetPrintImage(false);
-		$graph->SetIsInline(true);
-		
-		$graph->SetFileFormat("gif");
-		$graph->SetOutputFile("Visite_sito_grafico.gif");
 
-		$graph->SetDataValues($dati);
-		$graph->SetDataType("text-data");
-		$graph->SetPlotType("Bars");
-		
-		$graph->SetTitle("Trend del sito (Scelta_programma)");
-		
-		$graph->SetXLabel($title_X);
-		$graph->SetYLabel($title_Y);
-		
-		$graph->SetYGridLabelType("data");
-		
-		$graph->SetHorizTickIncrement(10);
-		$graph->SetDataColors("#ff7f00");
-		
-		$graph->DrawGraph();
-		$graph->PrintImage();
-        
+<body>
+    <h2>Visite sito</h2>
+    <form action="" method="GET" class="card" style="width: min-content; margin-inline:auto; text-align:center">
+        <label for="fromYear">Anno di partenza visualizzazione:</label>
+        <select name="fromYear" id="fromYear">
+            <!-- <option value="">Tutti gli anni</option> -->
+            <?php for ($year = $currentYear; $year >= 2020; $year--) : ?>
+                <option value="<?php echo $year ?>"><?php echo $year ?></option>
+            <?php endfor; ?>
+        </select>
+        <input type="submit" value="Genera">
+    </form>
 
+    <?php foreach ($table as $data) : ?>
+        <div class="card" style="width: fit-content; margin-inline:auto">
+            <h2><?php echo $data['title'] ?></h2>
 
-		$title_X="Settimana dal (Lunedi 00:00 - Domenica 23:59)";
-		$title_Y="Numero di vendite";
-		
-        $larg=400;
-		$alte=400;
-        if ($contatore>2)
-        	{
-            	$larg=50+$contatore*100;
-            }
-        if ($max>11)
-        	{
-            	$alte=$max*38;
-                if ($alte>800)
-                	{
-                    	$alte=800;
-                    }
-            }
-        
-		$graph = new PHPlot($larg, $alte);
-		
-		$graph->SetPrintImage(false);
-		$graph->SetIsInline(true);
-		
-		$graph->SetFileFormat("gif");
-		$graph->SetOutputFile("Vendite_grafico.gif");
+            <table>
+                <thead>
+                    <tr>
+                        <?php foreach ($data['head'] as $index => $headValue) : ?>
+                            <th><?php echo $headValue ?></th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php foreach ($data['body'] as $bodyLine) : ?>
+                            <?php foreach ($bodyLine as $index => $bodyValue) : ?>
+                                <td style="text-align: center"><?php echo $bodyValue ?></td>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
 
-		$graph->SetDataValues($dati1);
-		$graph->SetDataType("text-data");
-		$graph->SetPlotType("Bars");
-		
-		$graph->SetTitle("Trend degli incassi");
-		
-		$graph->SetXLabel($title_X);
-		$graph->SetYLabel($title_Y);
-		
-		$graph->SetYGridLabelType("data");
-		
-		$graph->SetHorizTickIncrement(10);
-		$graph->SetDataColors("#ff7faa");
-		
-		$graph->DrawGraph();
-		$graph->PrintImage();
-		?>
-	</body>
-</html>
+        </div>
+    <?php endforeach; ?>
+    <div class="data">
+
+        <?php foreach ($graphOnly as $data) : ?>
+            <div class="card graph">
+                <h2><?php echo $data['title'] ?></h2>
+                <img src="<?php echo $data['graph']->EncodeImage() ?>" alt=<?php echo $data['title'] ?>>
+            </div>
+        <?php endforeach; ?>
+
+    </div>
+</body>
+
+</html>

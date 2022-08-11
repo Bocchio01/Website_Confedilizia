@@ -6,15 +6,17 @@ h2 {
 table {
     font-size: 100%;
     border-collapse: collapse;
-    width: 90%;
+    width: fit-content;
+    max-width: 90%;
     margin: auto;
     display: block;
     overflow: auto;
-    border-width: 0px;
+    /* border-width: 0px; */
 }
 
 th,
 td {
+    border: 1px solid gray;
     text-align: left;
     padding: 8px;
     white-space: nowrap;

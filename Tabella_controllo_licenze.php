@@ -3,25 +3,47 @@
 include "_settings.php";
 updateInteractions();
 
+include "_isAdmin.php";
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $codice_rand = CreateToken(10);
 
-    $result = Query("SELECT id, email, tokenIllimitato FROM Utenti_prospetto WHERE id = $id");
-    $row = $result->fetch_array(MYSQLI_ASSOC);
-    if ($row["tokenIllimitato"] == NULL) {
-        Query("UPDATE Utenti_prospetto SET tokenIllimitato = '$codice_rand' WHERE id = $id");
-        echo "<script type = 'text/javascript'>alert('Licenza inviata correttamente');</script>";
+if (isset($_POST['submit'])) {
 
-        $msg = render('./template/email/controlloLicenze.php', array('codice_rand' => $codice_rand,));
+    try {
+        $valueArray = array(
+            'id'    => $_POST['id'],
+            'email' => parseEmail($_POST["email"]),
+            'token' => $_POST['token'],
+        );
 
-        mail($row['email'], $subject, $msg, $headers);
+        $mailArray = array(
+            'email'   => $valueArray['email'],
+            'subject' => $subject,
+            'msg'     => render('./template/email/controlloLicenze.php', $valueArray),
+            'headers' => $headers
+        );
+
+        setPayment($valueArray['id']);
+        sendEmail($mailArray);
+        alert('Licenza inviata correttamente');
+    } catch (Exception $e) {
+        alert($e->getMessage());
     }
 }
 
 
-$result = Query("SELECT id, ragioneSociale, email, codiceUnivoco, tokenIllimitato, downloadIllimitato, numeroLicenze FROM Utenti_prospetto WHERE tokenIllimitato IS NULL");
+$result  = Query("SELECT 
+                    I.id, 
+                    U.email, 
+                    U.nameCompany, 
+                    U.codeUnivocal, 
+                    I.token, 
+                    I.nLicences, 
+                    I.priceEach 
+                FROM Utenti_prospetto AS U 
+                JOIN Illimitata_data AS I 
+                WHERE U.id = I.idUser AND I.hasPayed = 0 
+                ORDER BY I.dateRequest");
+
 
 $conn->close();
 returndata(0, "Connection with MySQL database closed");
@@ -35,13 +57,13 @@ returndata(0, "Connection with MySQL database closed");
 
 <head>
     <style>
-        @import url(<?php echo UTILS_SITE ?>/template/site/_style_table.css);
+        @import url(<?php echo HOST_SITE ?>/template/site/_style_table.css);
     </style>
 </head>
 
 <body>
     <h2>Tabella controllo licenze</h2>
-    <table border='1'>
+    <table>
         <thead>
             <tr>
                 <th>Ragione sociale</th>
@@ -57,19 +79,23 @@ returndata(0, "Connection with MySQL database closed");
                 while ($row = $result->fetch_array(MYSQLI_ASSOC)) :
             ?>
                     <tr>
-                        <td><?php echo $row['ragioneSociale'] ?></td>
-                        <td><?php echo $row['codiceUnivoco'] ?></td>
-                        <td><?php echo $row['email'] ?></td>
-                        <td><?php echo number_format($costo * $row['numeroLicenze'] * 1.22, 2, '.', '') ?> €</td>
+                        <td><?php echo $row['nameCompany'] ?></td>
+                        <td><?php echo $row['codeUnivocal'] ?></td>
+                        <td><a href="mailto:<?php echo $row['email'] ?>"><?php echo $row['email'] ?></a></td>
+                        <td><?php echo number_format($swPrice * (int) $row['nLicences'] * 1.22, 2, '.', '') ?> €</td>
                         <td>
                             <form style="margin:0px; text-align:center" action="" method="post">
                                 <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <input type="submit" value=" Attiva licenza ">
+                                <input type="hidden" name="email" value="<?php echo $row['email'] ?>">
+                                <input type="hidden" name="token" value="<?php echo $row['token'] ?>">
+                                <input type="submit" name="submit" value="Attiva licenza">
                             </form>
                         </td>
                     </tr>
             <?php
                 endwhile;
+            else :
+                echo "<h3>Nessuna licenza da attivare. Buon lavoro!</h3>";
             endif;
             ?>
         </tbody>

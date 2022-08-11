@@ -3,7 +3,8 @@
 include "_settings.php";
 updateInteractions();
 
-Cookie(API_KEY);
+include "_isAdmin.php";
+
 
 ?>
 

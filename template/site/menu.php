@@ -33,7 +33,7 @@
                             <b class="intestazione_grande">Associazione della Proprietà Edilizia</b><br>
                             <b class="intestazione_grande">Via Diaz 91 - 22100 Como</b><br>
                             <b class="intestazione_piccolo">tel. e fax. 031.271.900</b><br>
-                            <a href="mailto:info@confediliziacomo.it" class="intestazione_piccolo"><b>&nbsp;info@confediliziacomo.it&nbsp;</b></a>
+                            <a href="mailto:<?php echo EMAIL['CONFEDILIZIA'] ?>" class="intestazione_piccolo"><b>&nbsp;<?php echo EMAIL['CONFEDILIZIA'] ?>&nbsp;</b></a>
                             <br><br>
                             <hr width="420">
                         </td>

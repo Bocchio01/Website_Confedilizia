@@ -3,9 +3,19 @@
 include "_settings.php";
 updateInteractions();
 
+include "_isAdmin.php";
 
-// $conn->close();
-// returndata(0, "Connection with MySQL database closed");
+
+$datas = array();
+$tables = array('Utenti_prospetto', 'Demo_data', 'Illimitata_data', 'Visite_sito');
+
+foreach ($tables as $table) {
+    $datas[$table] = Query("SELECT * FROM $table");
+}
+
+
+$conn->close();
+returndata(0, "Connection with MySQL database closed");
 ?>
 
 
@@ -16,31 +26,32 @@ updateInteractions();
 
 <head>
     <style>
-        @import url(<?php echo UTILS_SITE ?>/template/site/_style_table.css);
+        @import url(<?php echo HOST_SITE ?>/template/site/_style_table.css);
     </style>
 </head>
 
 <body>
-    <?php
-
-    $tables = array('Utenti_prospetto', 'Visite_sito');
-    foreach ($tables as $key => $table) {
-
-        $res = Query("SELECT * FROM $table");
-        echo "<h2>$table</h2><table border='1'><thead><tr>";
-
-        while ($fieldinfo = $res->fetch_field()) echo "<th>$fieldinfo->name</th>";
-        echo "</tr></thead><tbody>";
-
-        while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
-            echo "<tr>";
-            foreach ($row as $cell) echo "<td>" . htmlentities($cell) . "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody></table>";
-    }
-
-    ?>
+    <?php foreach ($datas as $nameTable => $data) : ?>
+        <h2> <?php echo $nameTable ?></h2>
+        <table>
+            <thead>
+                <tr>
+                    <?php while ($fieldinfo = $data->fetch_field()) : ?>
+                        <th> <?php echo $fieldinfo->name ?></th>
+                    <?php endwhile; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $data->fetch_array(MYSQLI_ASSOC)) : ?>
+                    <tr>
+                        <?php foreach ($row as $cell) : ?>
+                            <td> <?php echo htmlentities($cell) ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php endforeach; ?>
 </body>
 
 </html>
