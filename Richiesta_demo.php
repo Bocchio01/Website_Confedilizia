@@ -10,7 +10,7 @@ if (isset($_POST["submit"])) {
             'email'         => parseEmail($_POST["email"]),
             'nameCompany'   => $_POST['nameCompany'],
             'token'         => CreateToken(10),
-            'nLicences' => 1,
+            'nLicences'     => 1,
         );
 
         $mailArray = array(
@@ -42,56 +42,32 @@ returndata(0, "Connection with MySQL database closed");
 <?php echo render('./template/site/head.php', array('title' => 'Richiesta per versione demo'), 1); ?>
 
 <body>
+    <div>
 
-    <div align="center">
-        <table style="border: 0px; background-color: white; width:1000px;" cellpadding="0" cellspacing="0">
-            <tbody>
+        <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software demo')); ?>
 
-                <?php echo (render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software demo'))); ?>
+        <main>
 
-                <tr>
-                    <td width="1000px">
-                        <div id="articolo">
-                            <table align="center" width="88%">
-                                <tbody>
-                                    <tr>
-                                        <td><b>Per ricevere il programma di calcolo inserisci di seguito i dati richiesti.</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td><br><b>Ti verrà inviato per e-mail il link da cui poter scaricare il programma.</b></td>
-                                    </tr>
-                                    <tr>
-                                        <table align="center" width="82%">
-                                            <tbody>
-                                                <tr>
-                                                    <form action="" method="post">
-                                                        <td style="text-align: left;">
-                                                            <ul>
-                                                                <br>
-                                                                <li><label style="padding-right:7em">Ragione sociale:</label>&nbsp;<input type="text" name="nameCompany" id="nameCompany" required="required" placeholder="Es. Confedilizia Como"></li>
-                                                                <br>
-                                                                <li><label style="padding-right:2em">Email agenzia/associazione:</label><input type="text" name="email" id="email" required="required" placeholder="Es. <?php echo EMAIL['CONFEDILIZIA'] ?>"></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td align="center"><input style="margin-top: 20px;" class="submit" type="submit" value=" Invia " name="submit"></td>
-                                                    </form>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table width="88%" align="center">
+            <p>
+                <b>Per ricevere il programma di calcolo inserisci di seguito i dati richiesti.</b>
+            </p>
+            <p>
+                <b>Ti verrà inviato per e-mail il link da cui poter scaricare il programma.</b>
+            </p>
 
-                                            <?php echo (render('./template/site/footer.php', array())); ?>
+            <form action="" method="post">
+                <label for="nameCompany">Ragione sociale:</label>
+                <input name="nameCompany" id="nameCompany" type="text" required="required" placeholder="Es. Confedilizia Como">
 
-                                        </table>
-                                        <hr color="black" width="88%">
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <label for="email">Email agenzia/associazione:</label>
+                <input name="email" id="email" type="email" required="required" placeholder="Es. <?php echo EMAIL['CONFEDILIZIA'] ?>">
+                <input name="submit" id="submit" type="submit" value="Invia">
+            </form>
+
+        </main>
+
+        <?php echo render('./template/site/footer.php', array()); ?>
+
     </div>
 </body>
 

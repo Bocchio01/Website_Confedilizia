@@ -24,18 +24,12 @@ returndata(0, "Connection with MySQL database closed");
 
 <?php echo render('./template/site/head.php', array('title' => 'Tabella completa tutti gli utenti'), 1); ?>
 
-<head>
-    <style>
-        @import url(<?php echo HOST_SITE ?>/template/site/_style_table.css);
-    </style>
-</head>
-
 <body>
     <a href="/">
         <h1>Prospetto di calcolo</h1>
     </a>
     <?php foreach ($datas as $nameTable => $data) : ?>
-        <h2> <?php echo $nameTable ?></h2>
+        <h3><?php echo $nameTable ?></h3>
         <table>
             <thead>
                 <tr>

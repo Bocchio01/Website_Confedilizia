@@ -171,15 +171,6 @@ returndata(0, "Connection with MySQL database closed");
 
 <head>
     <style>
-        @import url(<?php echo HOST_SITE ?>/template/site/_style_table.css);
-
-        main {
-            display: flex;
-            align-items: flex-start;
-            flex-basis: initial;
-            align-items: stretch;
-        }
-
         .data {
             display: flex;
             flex-wrap: wrap;
@@ -199,25 +190,12 @@ returndata(0, "Connection with MySQL database closed");
             overflow: auto;
         }
 
-        hr {
-            margin-block: 20px;
-            margin-inline: 1em;
-        }
-
-        .graph-container {
-            display: flex;
-            text-align: center;
-            justify-content: space-between;
-            align-items: center;
-            overflow: auto;
-        }
-
-        .graph-container>.card {
-            overflow: initial;
+        .card>img {
+            max-width: 100%;
         }
 
         table {
-            max-width: unset;
+            max-width: 100%;
         }
     </style>
 </head>
@@ -226,8 +204,8 @@ returndata(0, "Connection with MySQL database closed");
     <a href="/">
         <h1>Prospetto di calcolo</h1>
     </a>
-    <h2>Visite sito</h2>
-    <form action="" method="GET" class="card" style="width: min-content; margin-inline:auto; text-align:center">
+    <h3>Visite sito</h3>
+    <form action="" method="GET">
         <label for="fromYear">Anno di partenza visualizzazione:</label>
         <select name="fromYear" id="fromYear">
             <!-- <option value="">Tutti gli anni</option> -->
@@ -237,32 +215,35 @@ returndata(0, "Connection with MySQL database closed");
         </select>
         <input type="submit" value="Genera">
     </form>
+    <div class="data">
 
-    <?php foreach ($table as $data) : ?>
-        <div class="card" style="width: fit-content; margin-inline:auto">
-            <h2><?php echo $data['title'] ?></h2>
+        <?php foreach ($table as $data) : ?>
+            <div class="card">
+                <h2><?php echo $data['title'] ?></h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <?php foreach ($data['head'] as $index => $headValue) : ?>
-                            <th><?php echo $headValue ?></th>
-                        <?php endforeach; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <?php foreach ($data['body'] as $bodyLine) : ?>
-                            <?php foreach ($bodyLine as $index => $bodyValue) : ?>
-                                <td style="text-align: center"><?php echo $bodyValue ?></td>
+                <table>
+                    <thead>
+                        <tr>
+                            <?php foreach ($data['head'] as $index => $headValue) : ?>
+                                <th><?php echo $headValue ?></th>
                             <?php endforeach; ?>
-                        <?php endforeach; ?>
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php foreach ($data['body'] as $bodyLine) : ?>
+                                <?php foreach ($bodyLine as $index => $bodyValue) : ?>
+                                    <td style="text-align: center"><?php echo $bodyValue ?></td>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </tr>
+                    </tbody>
+                </table>
 
-        </div>
-    <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
     <div class="data">
 
         <?php foreach ($graphOnly as $data) : ?>

@@ -59,124 +59,91 @@ returndata(0, "Connection with MySQL database closed");
 <?php echo render('./template/site/head.php', array('title' => 'Richiesta per versione illimitata'), 1); ?>
 
 <body>
-    <div align="center">
-        <table style="border: 0px; background-color: white; width:1000px;" cellpadding="0" cellspacing="0">
-            <tbody>
+    <div>
 
-                <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software illimitato')); ?>
+        <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software illimitato')); ?>
 
-                <tr>
-                    <td width="1000px">
-                        <div id="articolo">
-                            <table align="center" width="88%">
-                                <tbody>
-                                    <tr>
-                                        <td><b>Il costo della licenza illimitata è di € <?php echo $swPrice; ?> oltre IVA caduna da versare a Confedilizia Como.</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <br>N.B. Ogni software è utilizzabile solo su un determinato PC.
-                                            <br>Se per esempio hai bisogno di avere il software installato su 3 PC dovrai comprare N. 3 copie.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><br>Ti preghiamo di inviarci le informazioni richieste e di procedere al pagamento.</td>
-                                    </tr>
-                                    <tr>
-                                        <td align="left"><br><br>
-                                            <h2 style="text-align: left;">- Dati anagrafici</h2>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <form action="" method="post">
-                                <table align="center" width="82%">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: left;">
-                                                <ul>
-                                                    <li><label>Ragione sociale:</label><input type="text" name="nameCompany" id="nameCompany" required="required" placeholder="Es. A.P.E. - COMO"></li><br>
-                                                    <li><label>Partita IVA:</label><input type="text" name="codeVAT" id="codeVAT" required="required" placeholder="Es. ..."></li><br>
-                                                    <li><label>address agenzia/associazione:</label><input type="text" name="address" id="address" required="required" placeholder="Es. Via Diaz 91 - 22100 Como"></li><br><br>
-                                                    <li>
-                                                        <label>Quante copie vuoi acquistare?&nbsp</label>
-                                                        <select style="width:78px;" id="nLicences" name="nLicences" onchange="updatePrice()">
-                                                            <option selected value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                        </select>
-                                                        <p style="margin: 0px; display: inline-block;">-></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td style="text-align: left;">
-                                                <ul>
-                                                    <li><label>Codice univoco:</label><input type="text" name="codeUnivocal" id="codeUnivocal" required="required" placeholder="Es. M5UXCR1"></li><br>
-                                                    <li><label>Email agenzia/associazione:</label><input type="text" name="email" id="email" required="required" placeholder="Es. info@condefiliziacomo.it"></li><br>
-                                                    <li><label>Recapito telefonico:</label><input type="text" name="phone" id="phone" required="required" placeholder="Es. 031271900"></li><br><br>
-                                                    <div id="prezzo" style="height:35px; position:relative; top:8px;">(€ <?php echo $swPrice; ?> oltre IVA - € <?php echo $swPriceVAT; ?> IVA inclusa)</div>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table align="center" width="88%">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input style="margin-top:7px" class="submit" type="submit" value=" Invia dati " name="submit">
-                                            </td>
-                                        </tr>
+        <main>
 
-                                        <tr>
-                                            <td align="left">
-                                                <br><br>
-                                                <h2 style="text-align: left;">- Estremi bancari</h2>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </form>
-                            <table align="center" width="82%">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <ul style="text-align: left;">
-                                                <li><b>Banca di riferimento: <?php echo BANK_DATA['NAME'] ?></b></li><br>
-                                                <li><b>IBAN: <?php echo BANK_DATA['IBAN'] ?></b></li><br>
-                                                <li><b>Causale: <?php echo BANK_DATA['CAUSAL'] ?></b></li><br>
-                                                <li><b id="dato_bancario">Somma da versare: € <?php echo $swPriceVAT; ?> IVA inclusa</b></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table align="center" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <br>In caso di problemi legati al pagamento contattare <a href="mailto:<?php echo EMAIL['CONFEDILIZIA'] ?>" class="intestazione_piccolo"><b><?php echo EMAIL['CONFEDILIZIA'] ?></b></a>
-                                            <br>Per assistenza tecnica, contattare <a href="mailto:<?php echo EMAIL['MASTER'] ?>" class="intestazione_piccolo"><b><?php echo EMAIL['MASTER'] ?></b></a>
-                                            <hr color="black" width="88%">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <p>
+                <b>Il costo della licenza illimitata è di € <?php echo $swPrice; ?> oltre IVA caduna da versare a Confedilizia Como.</b>
+            </p>
+            <p>
+                N.B. Ogni software è utilizzabile solo su un determinato PC.<br>
+                Se per esempio hai bisogno di avere il software installato su 3 PC dovrai comprare N. 3 licenze.
+            </p>
+            <p>
+                Ti preghiamo di inviarci le informazioni richieste e di procedere al pagamento.
+            </p>
+
+            <h3 style="text-align: left;">- Dati anagrafici</h3>
+            <form action="" method="post" style="width: 90%;">
+
+                <div class="flex" style="row-gap: 0px">
+                    <div>
+                        <label for="nameCompany">Ragione sociale:</label>
+                        <input name="nameCompany" id="nameCompany" type="text" required="required" placeholder="Es. A.P.E. - COMO">
+
+                        <label for="codeVAT">Partita IVA:</label>
+                        <input name="codeVAT" id="codeVAT" type="text" required="required" placeholder="Es. ...">
+
+                        <label for="address">Indirizzo agenzia/associazione:</label>
+                        <input name="address" id="address" type="text" required="required" placeholder="Es. Via Diaz 91 - 22100 Como">
+                    </div>
+
+                    <div>
+                        <label for="codeUnivocal">Codice univoco:</label>
+                        <input name="codeUnivocal" id="codeUnivocal" type="text" required="required" placeholder="Es. M5UXCR1">
+
+                        <label for="email">Email agenzia/associazione:</label>
+                        <input name="email" id="email" type="email" required="required" placeholder="Es. info@condefiliziacomo.it">
+
+                        <label for="phone">Recapito telefonico:</label>
+                        <input name="phone" id="phone" type="tel" required="required" placeholder="Es. 031271900">
+                    </div>
+                </div>
+
+                <label for="nLicences">Quante licenze vuoi acquistare?</label>
+                <div class="flex" style="row-gap: 0px">
+                    <select name="nLicences" id="nLicences" onchange="updatePrice()" style="width: 100px; flex-grow: 0">
+                        <option selected value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label>Equivalenti a: € <span id="swPrice"><?php echo $swPrice; ?></span> oltre IVA - € <span id="swPriceVAT1"><?php echo $swPriceVAT; ?></span> IVA inclusa</label>
+                </div>
+
+                <input style="margin-top:7px" class="submit" type="submit" value=" Invia dati " name="submit">
+            </form>
+
+            <h3 style="text-align: left;">- Estremi bancari</h3>
+            <ul style="font-weight: bold;">
+                <li>Banca di riferimento: <?php echo BANK_DATA['NAME'] ?></li>
+                <li>IBAN: <?php echo BANK_DATA['IBAN'] ?></li>
+                <li>Causale: <?php echo BANK_DATA['CAUSAL'] ?></li>
+                <li>Somma da versare: € <span id="swPriceVAT2"><?php echo $swPriceVAT; ?></span> IVA inclusa</li>
+            </ul>
+
+            <br>
+            <p style="text-align:center; margin-bottom: 0px;">
+                In caso di problemi legati al pagamento contattare <a href="mailto:<?php echo EMAIL['CONFEDILIZIA'] ?>" style="color: black;"><b><?php echo EMAIL['CONFEDILIZIA'] ?></b></a>
+            </p>
+
+        </main>
+
+        <?php echo render('./template/site/footer.php', array()); ?>
+
     </div>
 </body>
 
 <script>
     function updatePrice() {
         const nLicences = document.getElementById("nLicences").value;
-        document.getElementById("prezzo").innerHTML = "(€ " + (<?php echo $swPrice; ?> * nLicences).toFixed(2) + " oltre IVA" + " - € " + (<?php echo $swPriceVAT; ?> * nLicences).toFixed(2) + " IVA inclusa)";
-        document.getElementById("dato_bancario").innerHTML = "Somma da versare: € " + (<?php echo $swPriceVAT; ?> * nLicences).toFixed(2) + " IVA inclusa";
+        document.getElementById("swPrice").innerHTML = (<?php echo $swPrice; ?> * nLicences).toFixed(2);
+        document.getElementById("swPriceVAT1").innerHTML = (<?php echo $swPriceVAT; ?> * nLicences).toFixed(2);
+        document.getElementById("swPriceVAT2").innerHTML = (<?php echo $swPriceVAT; ?> * nLicences).toFixed(2);
     }
 </script>
 

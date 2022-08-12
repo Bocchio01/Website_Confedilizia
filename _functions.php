@@ -45,7 +45,7 @@ function render(string $script, array $vars = array(), bool $loadStyle = FALSE)
     extract($vars);
 
     if ($loadStyle) {
-        $style = file_get_contents('./template/site/_style.css',);
+        $style = file_get_contents('./assets/style.css',);
     }
 
     ob_start();
