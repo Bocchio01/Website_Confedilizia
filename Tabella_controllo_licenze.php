@@ -81,11 +81,11 @@ returndata(0, "Connection with MySQL database closed");
                         <td><a href="mailto:<?php echo $row['email'] ?>"><?php echo $row['email'] ?></a></td>
                         <td><?php echo number_format($swPrice * (int) $row['nLicences'] * 1.22, 2, '.', '') ?> €</td>
                         <td>
-                            <form style="margin:0px; text-align:center" action="" method="post">
-                                <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
-                                <input type="hidden" name="email" value="<?php echo $row['email'] ?>">
-                                <input type="hidden" name="token" value="<?php echo $row['token'] ?>">
-                                <input type="submit" name="submit" value="Attiva licenza">
+                            <form action="" method="post" style="margin-bottom: 0px; padding: 2px">
+                                <input name="id" id="id" type="hidden" value="<?php echo $row['id'] ?>">
+                                <input name="email" id="email" type="hidden" value="<?php echo $row['email'] ?>">
+                                <input name="token" id="token" type="hidden" value="<?php echo $row['token'] ?>">
+                                <input name="submit" id="submit" type="submit" value="Attiva licenza">
                             </form>
                         </td>
                     </tr>

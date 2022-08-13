@@ -1,16 +1,16 @@
 <html>
 
-<?php echo render('./template/site/head.php', array('title' => 'Download versione demo'), 1); ?>
+<?php echo render('./template/site/head.php', array('title' => 'Pagina di login'), 1); ?>
 
 <body>
     <div>
 
-        <?php echo render('./template/site/menu.php', array('title' => 'Pagina di login', 'subtitle' => "accedi all'area riservata")); ?>
+        <?php echo render('./template/site/header.php', array('title' => 'Pagina di login', 'subtitle' => "accedi all'area riservata")); ?>
 
         <main>
 
             <p>
-                <td>Inserisci la password di accesso all'area riservata</td>
+                Inserisci la password di accesso all'area riservata
             </p>
 
             <form action="<?php echo $fromURL ?>" method="post">

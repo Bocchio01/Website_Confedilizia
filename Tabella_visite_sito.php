@@ -33,6 +33,10 @@ function DefaultGraph($data, $type = 'linepoints')
     $plot->SetLineWidths(3);
     // $plot->SetYTickIncrement(1);
 
+    if (count($data) > 12) {
+        $plot->SetXLabelAngle(90);
+    }
+
 
     return $plot;
 }
@@ -63,7 +67,11 @@ function graphAndData(String $query)
     return $example_data;
 }
 
-
+$pageNames = array();
+$result = Query("SELECT pageName FROM Visite_sito ORDER BY id");
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    $pageNames[] = $row['pageName'];
+}
 
 $currentYear = (int) date("Y");
 $currentMonth = (int) date("m") - 1;
@@ -73,7 +81,7 @@ $graphOnly = array();
 $dataOnly = array();
 
 $fromYear = empty($_GET['fromYear']) ? 2022 : $_GET['fromYear'];
-$byName = array(4);
+$byPageName = empty($_GET['byPageName']) ? array('Scelta_programma') : $_GET['byPageName'];
 
 
 // Selling table
@@ -109,8 +117,18 @@ for ($i = $fromYear; $i <= $currentYear; $i++) {
 
     for ($j = 0; $j <= $nMonth; $j++) {
 
-        $Illimitati = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed FROM Illimitata_data WHERE YEAR(dateRequest) = $i AND MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
-        $Demo = Query("SELECT SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo FROM Demo_data WHERE YEAR(dateRequest) = $i AND MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+        $Illimitati = Query("SELECT
+                                 SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, 
+                                 SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed 
+                             FROM Illimitata_data WHERE
+                                 YEAR(dateRequest) = $i AND 
+                                 MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+
+        $Demo = Query("SELECT
+                           SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo
+                       FROM Demo_data WHERE
+                           YEAR(dateRequest) = $i AND
+                           MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
 
         $example_data[] = array(
             $j + 1 . '-' . $i,
@@ -130,23 +148,6 @@ $data['title'] = 'Andamento vendite';
 $graphOnly[] = $data;
 
 
-// Visit from pages in byName array
-if (!empty($byName)) {
-    foreach ($byName as $number => $id) {
-        $example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito WHERE id = $id");
-
-        $data['graph'] = DefaultGraph($example_data);
-        $data['graph']->SetYTitle('Numero visite per mese');
-        $data['graph']->DrawGraph();
-
-        $data['title'] = Query("SELECT pageName FROM Visite_sito WHERE id = $id")->fetch_array(MYSQLI_ASSOC)['pageName'];
-
-        $example_data = null;
-        $graphOnly[] = $data;
-    }
-}
-
-
 // Sum all visit
 $example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito");
 $data['graph'] = DefaultGraph($example_data);
@@ -156,6 +157,23 @@ $data['title'] = 'Andamento generale del sito';
 
 $example_data = null;
 $graphOnly[] = $data;
+
+
+// Visit from pages in byPageName array
+if (!empty($byPageName)) {
+    foreach ($byPageName as $number => $pageName) {
+        $example_data = graphAndData("SELECT GROUP_CONCAT(id) AS idArray FROM Visite_sito WHERE pageName = '$pageName'");
+
+        $data['graph'] = DefaultGraph($example_data);
+        $data['graph']->SetYTitle('Numero visite per mese');
+        $data['graph']->DrawGraph();
+
+        $data['title'] = $pageName;
+
+        $example_data = null;
+        $graphOnly[] = $data;
+    }
+}
 
 
 
@@ -205,18 +223,24 @@ returndata(0, "Connection with MySQL database closed");
         <h1>Prospetto di calcolo</h1>
     </a>
     <h3>Visite sito</h3>
+
     <form action="" method="GET">
         <label for="fromYear">Anno di partenza visualizzazione:</label>
         <select name="fromYear" id="fromYear">
-            <!-- <option value="">Tutti gli anni</option> -->
             <?php for ($year = $currentYear; $year >= 2020; $year--) : ?>
                 <option value="<?php echo $year ?>"><?php echo $year ?></option>
             <?php endfor; ?>
         </select>
-        <input type="submit" value="Genera">
+        <label for="byPageName">Seleziona una o più pagine del sito:</label>
+        <select name="byPageName[]" id="byPageName" multiple>
+            <?php foreach ($pageNames as $pageName) : ?>
+                <option value="<?php echo $pageName ?>"><?php echo $pageName ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input name="submit" id="submit" type="submit" value="Genera">
     </form>
-    <div class="data">
 
+    <div class="data">
         <?php foreach ($table as $data) : ?>
             <div class="card">
                 <h2><?php echo $data['title'] ?></h2>
@@ -245,14 +269,12 @@ returndata(0, "Connection with MySQL database closed");
     </div>
 
     <div class="data">
-
         <?php foreach ($graphOnly as $data) : ?>
             <div class="card graph">
                 <h2><?php echo $data['title'] ?></h2>
                 <img src="<?php echo $data['graph']->EncodeImage() ?>" alt=<?php echo $data['title'] ?> loading="lazy">
             </div>
         <?php endforeach; ?>
-
     </div>
 </body>
 

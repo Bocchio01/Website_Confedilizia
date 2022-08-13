@@ -17,7 +17,7 @@ returndata(0, "Connection with MySQL database closed");
 <body>
     <div>
 
-        <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'software ConfediliziaComo')); ?>
+        <?php echo render('./template/site/header.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'software ConfediliziaComo')); ?>
 
         <main>
 
@@ -31,18 +31,18 @@ returndata(0, "Connection with MySQL database closed");
                         <li>Possibilità di stampare il prospetto in maniera ordinata e chiara.</li>
                     </ul>
                     <p>
-                        Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="./assets/Esempio_PDF.pdf">Esempio PDF</a>.
+                        Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="/assets/pdf/examplePDF.pdf">Esempio PDF</a>.
                     </p>
                 </div>
                 <div style="text-align: center;">
-                    <iframe src="./assets/Video_excel.mp4" height="350px" loading="lazy"></iframe>
+                    <iframe src="/assets/img/exampleExcel.mp4" alt="Video demo del programma" title="Video demo del programma" height="350px" loading="lazy"></iframe>
                 </div>
             </div>
 
             <h3>Ottieni il software:</h3>
             <ul>
-                <!-- <li><a href="./Richiesta_demo.php">Versione demo (Gratuita):</a> consente un utilizzo del software completo per 7 giorni.</li> -->
-                <li><a href="./Richiesta_illimitata.php">Versione illimitata (Costo: €.<?php echo $swPrice; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
+                <!-- <li><a href="/Richiesta_demo.php">Versione demo (Gratuita):</a> consente un utilizzo del software completo per 7 giorni.</li> -->
+                <li><a href="/Richiesta_illimitata.php">Versione illimitata (Costo: €.<?php echo $swPrice; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
             </ul>
 
             <p style="text-align: center;">

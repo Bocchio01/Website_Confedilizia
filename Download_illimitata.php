@@ -27,7 +27,7 @@ returndata(0, "Connection with MySQL database closed");
 <body>
     <div>
 
-        <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'download versione illimitata')); ?>
+        <?php echo render('./template/site/header.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'download versione illimitata')); ?>
 
         <main>
 

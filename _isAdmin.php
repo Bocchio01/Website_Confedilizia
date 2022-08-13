@@ -16,7 +16,7 @@ if (
 if ($login === FALSE) {
     ClearCookie();
     try {
-        logError("Login non riuscito", print_r($_SERVER, true));
+        logError(array("Login non riuscito", print_r($_SERVER, true)));
     } catch (\Throwable $th) {
     }
     alert("Login error!");

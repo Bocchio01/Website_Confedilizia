@@ -1,6 +1,6 @@
 <?php
 
-function returndata(int $code = 0, string $log = null)
+function returndata(int $code = 0, string $log = null): void
 {
     global $return_obj;
     $return_obj->Log[] = $log;
@@ -16,7 +16,7 @@ function Query(string $sql)
     global $conn, $return_obj;
     if (!$result = $conn->query($sql)) {
 
-        logError($sql, $conn->error);
+        logError(array($sql, $conn->error));
 
         $return_obj->Log[] = $conn->error;
         $return_obj->Status = 1;
@@ -56,7 +56,7 @@ function render(string $script, array $vars = array(), bool $loadStyle = FALSE)
 
 function Cookie(string $cookie_value)
 {
-    setcookie('tokenAdmin', "$cookie_value", [
+    return setcookie('tokenAdmin', "$cookie_value", [
         'expires'  => time() + 60 * 60 * 24 * 30,
         'path'     => '/',
         'samesite' => 'None',
@@ -68,7 +68,7 @@ function Cookie(string $cookie_value)
 
 function ClearCookie()
 {
-    setcookie('tokenAdmin', '', [
+    return setcookie('tokenAdmin', '', [
         'path'     => '/',
         'samesite' => 'None',
         'secure'   => 'Secure',
@@ -77,7 +77,7 @@ function ClearCookie()
 }
 
 
-function updateInteractions()
+function updateInteractions(): bool
 {
     $pageName = basename($_SERVER['REQUEST_URI'], ".php");
     $year = date("Y");
@@ -91,13 +91,15 @@ function updateInteractions()
     if (Query("SELECT * FROM Visite_sito WHERE pageName = '$pageName' LIMIT 1")->num_rows == 0) return FALSE;
 
     Query("UPDATE Visite_sito SET `$year` = JSON_SET(`$year`, '$[$month]', JSON_EXTRACT(`$year`, '$[$month]') + 1) WHERE pageName = '$pageName'");
+
+    return TRUE;
 }
 
 
-function logError(string $sql, string $error): void
+function logError(array $args): void
 {
     error_log(
-        $logMsg = implode("\n", array("\n\n\n" . date(DATE_RSS), print_r(get_defined_vars(), true))),
+        $logMsg = implode("\n", array(date(DATE_RSS), print_r(get_defined_vars(), true) . "\n\n\n")),
         3,
         './.log'
     );
@@ -105,8 +107,8 @@ function logError(string $sql, string $error): void
     sendEmail(array(
         'email'   => EMAIL['MASTER'],
         'subject' => "Errore durante l'elaborazione di una Query",
-        'msg'     =>  '<a href="' . HOST_SITE . '/.log' . '">Link to log file!</a>',
-        'headers' => "From: no-reply." . EMAIL['MASTER'],
+        'msg'     => implode("\n", array(date(DATE_RSS), $_SERVER['REQUEST_URI'])),
+        'headers' => "From: " . EMAIL['MASTER'],
     ));
 }
 
@@ -286,11 +288,14 @@ function fileDownload($file): bool
 
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+    header('Content-Disposition: attachment; filename=' . basename($file));
+    header('Content-Transfer-Encoding: binary');
     header('Expires: 0');
-    header('Cache-Control: must-revalidate');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header('Pragma: public');
     header('Content-Length: ' . filesize($file));
+    ob_clean();
+    flush();
     return (bool) readfile($file);
 }
 

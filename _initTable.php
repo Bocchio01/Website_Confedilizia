@@ -37,7 +37,7 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Demo_data (
     nDownload    INT(4)       DEFAULT 0,
     nLicences    INT(4)       NOT NULL,
     dateDownload JSON         DEFAULT ('[]'),
-    priceEach    FLOAT(5)     DEFAULT 100.00,
+    priceEach    FLOAT(5)     DEFAULT 0,
     hasPayed     INT(4)       DEFAULT 1,
     datePayment  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
 
@@ -65,14 +65,17 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Illimitata_data (
 
 
 $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
-('Indice_controllo'),
-('Tabella_tutti_utenti'),
-('Tabella_controllo_licenze'),
 ('Scelta_programma'),
 ('Richiesta_demo'),
 ('Richiesta_illimitata'),
 ('Download_demo'),
-('Download_illimitata')";
+('Download_illimitata'),
+('Indice_controllo'),
+('Tabella_controllo_licenze'),
+('Tabella_tutti_utenti'),
+('Tabella_visite_sito'),
+('403'),
+('404')";
 
 
 

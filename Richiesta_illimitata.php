@@ -14,7 +14,7 @@ if (isset($_POST["submit"])) {
             'address'       => $_POST["address"],
             'phone'         => $_POST['phone'],
             'token'         => CreateToken(10),
-            'nLicences' => $_POST['nLicences'],
+            'nLicences'     => $_POST['nLicences'],
             'swPrice'       => number_format($swPrice * $_POST["nLicences"], 2, '.', ''),
             'swPriceVAT'    => number_format($swPriceVAT * $_POST["nLicences"], 2, '.', ''),
         );
@@ -61,7 +61,7 @@ returndata(0, "Connection with MySQL database closed");
 <body>
     <div>
 
-        <?php echo render('./template/site/menu.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software illimitato')); ?>
+        <?php echo render('./template/site/header.php', array('title' => 'Prospetto di calcolo', 'subtitle' => 'richiesta software illimitato')); ?>
 
         <main>
 
@@ -115,7 +115,7 @@ returndata(0, "Connection with MySQL database closed");
                     <label>Equivalenti a: € <span id="swPrice"><?php echo $swPrice; ?></span> oltre IVA - € <span id="swPriceVAT1"><?php echo $swPriceVAT; ?></span> IVA inclusa</label>
                 </div>
 
-                <input style="margin-top:7px" class="submit" type="submit" value=" Invia dati " name="submit">
+                <input name="submit" id="sumbit" type="submit" value="Invia dati">
             </form>
 
             <h3 style="text-align: left;">- Estremi bancari</h3>

@@ -7,7 +7,7 @@ body {
 body {
   font-family: Verdana, Arial;
   color: black;
-  background: url(./assets/Logo2.jpg);
+  background: url(/assets/img/logoBackground.jpg);
 }
 
 hr {
@@ -46,7 +46,7 @@ footer > p > a {
 }
 
 .logo {
-  max-width: 100%;
+  width: 100%;
 }
 
 .menu {

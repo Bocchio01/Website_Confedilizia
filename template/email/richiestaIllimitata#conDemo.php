@@ -15,7 +15,9 @@
     </ul>
     <p>
         Se hai necessità di prorogare per altri 7 giorni il tuo programma provvisorio, scarica di nuovo la versione demo da <a href="<?php echo HOST_SITE ?>/Download_demo.php">questo link</a>.<br>
-        Il tokenDemo con cui scaricare il software è il seguente: <i><?php echo $token ?></i>.<br><br>
+        Il tokenDemo con cui scaricare il software è il seguente: <i><?php echo $token ?></i>.
+    </p>
+    <p>
         Grazie e buona giornata,<br>
         Confedilizia Como
     </p>

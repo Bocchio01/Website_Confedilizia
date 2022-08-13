@@ -1,12 +1,12 @@
 <header>
-    <img class="logo" src="./assets/Logo0.jpg" title="Confedilizia Como e Castel Baradello" loading="lazy">
+    <img class="logo" src="/assets/img/logoHeader.jpg" alt="Confedilizia Como e Castel Baradello" title="Confedilizia Como e Castel Baradello" loading="lazy">
     <div class="menu">
         <a href="http://www.confediliziacomo.it/index.html">Presentazione</a>
-        <a href="http://www.confediliziacomo.it/Consiglio.htm">Consiglio</a>
-        <a href="http://www.confediliziacomo.it/Servizi.htm">Servizi</a>
-        <a href="http://www.confediliziacomo.it/Normativa.htm">Normativa</a>
-        <a href="http://www.confediliziacomo.it/Consulenti.htm">Consulenti</a>
-        <a href="http://www.confediliziacomo.it/Amministratori.htm">Registro amministratori</a>
+        <a href="http://www.confediliziacomo.it/Consiglio.html">Consiglio</a>
+        <a href="http://www.confediliziacomo.it/Servizi.html">Servizi</a>
+        <a href="http://www.confediliziacomo.it/Normativa.html">Normativa</a>
+        <a href="http://www.confediliziacomo.it/Consulenti.html">Consulenti</a>
+        <a href="http://www.confediliziacomo.it/Amministratori.html">Registro amministratori</a>
     </div>
 
     <a href="/">
