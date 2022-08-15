@@ -1,6 +1,6 @@
 <?php
 
-define('HOST_SITE', 'http://localhost');
+define('HOST_SITE', $_SERVER['HTTP_HOST']);
 define('API_KEY', 12345);
 define('IS_DEV', 0);
 

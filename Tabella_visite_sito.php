@@ -228,13 +228,13 @@ returndata(0, "Connection with MySQL database closed");
         <label for="fromYear">Anno di partenza visualizzazione:</label>
         <select name="fromYear" id="fromYear">
             <?php for ($year = $currentYear; $year >= 2020; $year--) : ?>
-                <option value="<?php echo $year ?>"><?php echo $year ?></option>
+                <option value="<?php echo $year ?>" <?php echo $year == $fromYear ? "selected" : "" ?>><?php echo $year ?></option>
             <?php endfor; ?>
         </select>
         <label for="byPageName">Seleziona una o più pagine del sito:</label>
         <select name="byPageName[]" id="byPageName" multiple>
             <?php foreach ($pageNames as $pageName) : ?>
-                <option value="<?php echo $pageName ?>"><?php echo $pageName ?></option>
+                <option value="<?php echo $pageName ?>" <?php echo in_array($pageName, $byPageName) ? "selected" : "" ?>><?php echo $pageName ?></option>
             <?php endforeach; ?>
         </select>
         <input name="submit" id="submit" type="submit" value="Genera">
