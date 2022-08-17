@@ -53,7 +53,7 @@ function graphAndData(String $query)
         if ($i == $currentYear) $nMonth = $currentMonth;
         else $nMonth = 12;
 
-        for ($j = 0; $j <= $nMonth; $j++) {
+        for ($j = 0; $j < $nMonth; $j++) {
 
             $row = Query("SELECT SUM(JSON_EXTRACT(`$i`, '$[$j]')) AS numberVisitsMonth FROM Visite_sito WHERE id IN ($idArray)")->fetch_array(MYSQLI_ASSOC);
 
@@ -74,14 +74,14 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 }
 
 $currentYear = (int) date("Y");
-$currentMonth = (int) date("m") - 1;
+$currentMonth = (int) date("m");
 
 $graphAndData = array();
 $graphOnly = array();
 $dataOnly = array();
 
 $fromYear = empty($_GET['fromYear']) ? 2022 : $_GET['fromYear'];
-$byPageName = empty($_GET['byPageName']) ? array('Scelta_programma') : $_GET['byPageName'];
+$byPageName = empty($_GET['byPageName']) ? array() : $_GET['byPageName'];
 
 
 // Selling table
@@ -115,7 +115,7 @@ for ($i = $fromYear; $i <= $currentYear; $i++) {
     if ($i == $currentYear) $nMonth = $currentMonth;
     else $nMonth = 12;
 
-    for ($j = 0; $j <= $nMonth; $j++) {
+    for ($j = 0; $j < $nMonth; $j++) {
 
         $Illimitati = Query("SELECT
                                  SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, 

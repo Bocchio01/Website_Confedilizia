@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Scelta_programma.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Richiesta_demo.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Richiesta_illimitata.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Download_demo.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Download_illimitata.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Indice_controllo.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Tabella_controllo_licenze.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Tabella_tutti_utenti.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/Tabella_visite_sito.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/403.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/404.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+</urlset>
