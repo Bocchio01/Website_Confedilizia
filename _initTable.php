@@ -71,9 +71,10 @@ $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
 ('Download_demo'),
 ('Download_illimitata'),
 ('Indice_controllo'),
-('Tabella_controllo_licenze'),
-('Tabella_tutti_utenti'),
-('Tabella_visite_sito'),
+('licenseCheck'),
+('database'),
+('analytics'),
+('emailSender'),
 ('403'),
 ('404')";
 

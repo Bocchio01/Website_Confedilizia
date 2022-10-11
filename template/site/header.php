@@ -1,13 +1,13 @@
 <header>
     <img class="logo" src="/assets/img/logoHeader.jpg" alt="Confedilizia Como e Castel Baradello" title="Confedilizia Como e Castel Baradello" loading="lazy">
-    <div class="menu">
+    <nav>
         <a href="http://www.confediliziacomo.it/index.html">Presentazione</a>
         <a href="http://www.confediliziacomo.it/Consiglio.html">Consiglio</a>
         <a href="http://www.confediliziacomo.it/Servizi.html">Servizi</a>
         <a href="http://www.confediliziacomo.it/Normativa.html">Normativa</a>
         <a href="http://www.confediliziacomo.it/Consulenti.html">Consulenti</a>
         <a href="http://www.confediliziacomo.it/Amministratori.html">Registro amministratori</a>
-    </div>
+    </nav>
 
     <a href="/">
         <h1><?php echo $title ?></h1>

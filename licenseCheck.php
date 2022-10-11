@@ -53,13 +53,13 @@ returndata(0, "Connection with MySQL database closed");
 <!DOCTYPE html>
 <html lang="it">
 
-<?php echo render('./template/site/head.php', array('title' => 'Autorizzazioni licenze illimitate'), 1); ?>
+<?php echo render('./template/site/head.php', array('title' => 'Autorizzazioni licenze illimitate', 'robots' => 'noindex'), 1); ?>
 
 <body>
     <a href="/">
         <h1>Prospetto di calcolo</h1>
     </a>
-    <h3>Tabella controllo licenze</h3>
+    <h3>Autorizzazioni licenze illimitate</h3>
     <table>
         <thead>
             <tr>

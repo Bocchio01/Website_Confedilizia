@@ -44,21 +44,21 @@
   </url>
 
   <url>
-    <loc>https://attestazioniaffitti.altervista.org/Tabella_controllo_licenze.php</loc>
+    <loc>https://attestazioniaffitti.altervista.org/licenseCheck.php</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.0</priority>
   </url>
 
   <url>
-    <loc>https://attestazioniaffitti.altervista.org/Tabella_tutti_utenti.php</loc>
+    <loc>https://attestazioniaffitti.altervista.org/database.php</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.0</priority>
   </url>
 
   <url>
-    <loc>https://attestazioniaffitti.altervista.org/Tabella_visite_sito.php</loc>
+    <loc>https://attestazioniaffitti.altervista.org/analytics.php</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.0</priority>
@@ -73,6 +73,13 @@
 
   <url>
     <loc>https://attestazioniaffitti.altervista.org/404.php</loc>
+    <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.0</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/500.php</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.0</priority>

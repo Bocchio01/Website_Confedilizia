@@ -9,56 +9,48 @@ body {
   color: black;
   background: url(/assets/img/logoBackground.jpg);
 }
-
-hr {
-  margin-block: 15px;
-}
-
 body > div:not(.data) {
   width: 1000px;
   max-width: 100%;
   margin-inline: auto;
   background-color: white;
 }
-
-main {
+body hr {
+  margin-block: 15px;
+}
+body main {
   width: 82%;
   margin-inline: auto;
   text-align: justify;
   font: 1em georgia, Arial;
   padding-block: 1px;
 }
-
-footer {
+body footer {
   margin-inline: auto;
   text-align: center;
   font: 1em georgia, Arial;
   color: black !important;
   padding-bottom: 15px;
 }
-
-footer > p {
+body footer > p {
   margin: 0px;
 }
-
-footer > p > a {
+body footer > p > a {
   color: black !important;
 }
-
-.logo {
+body .logo {
   width: 100%;
 }
-
-.menu {
+body nav {
   display: flex;
   flex-wrap: wrap;
   row-gap: 7px;
-  column-gap: 7px;
+  -moz-column-gap: 7px;
+       column-gap: 7px;
   padding: 7px;
   border-bottom: 5px double #555;
 }
-
-.menu > a {
+body nav > a {
   flex-grow: 1;
   text-align: center;
   padding: 7px;
@@ -67,20 +59,17 @@ footer > p > a {
   font-family: Verdana, Arial;
   text-transform: uppercase;
 }
-
-a {
+body a {
   font-size: 1em;
   color: #bb3300;
   font-weight: bold;
   text-decoration: none;
 }
-
-a:hover {
+body a:hover {
   color: black;
   background-color: yellow;
 }
-
-h1 {
+body h1 {
   font: italic 900 3.5em/1em georgia, serif;
   color: #222;
   text-align: center;
@@ -88,57 +77,49 @@ h1 {
   padding: 10px;
   border-bottom: 3px solid #555;
 }
-
-h2 {
+body h2 {
   font: italic 900 1.2em/1em Verdana, Arial, sans-serif;
   margin: 5px 30px;
   text-align: center;
 }
-
-h3 {
+body h3 {
   font: italic 900 1.2em/1em Verdana, Arial, sans-serif;
   text-align: center;
 }
-
-.intestazione {
+body .intestazione {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   font-weight: bold;
   margin-block: 30px;
 }
-
-.intestazione > .font-large {
+body .intestazione > .font-large {
   font-size: 2em;
   margin: 0;
 }
-
-.intestazione > .font-small {
+body .intestazione > .font-small {
   font-size: 1em;
   color: black !important;
   margin: 0;
 }
-
-.flex {
+body .flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   row-gap: 30px;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
 }
-
-.flex > * {
+body .flex > * {
   flex-basis: 250px;
   flex-shrink: 1;
   flex-grow: 1;
   margin: auto;
 }
-
-ul > li {
+body ul > li {
   margin-block: 15px;
 }
-
-input,
-select {
+body input,
+body select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -147,8 +128,7 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
-input[type='submit'] {
+body input[type=submit] {
   width: 100%;
   background-color: #bb3300;
   color: white;
@@ -158,12 +138,10 @@ input[type='submit'] {
   border-radius: 4px;
   cursor: pointer;
 }
-
-input[type='submit']:hover {
+body input[type=submit]:hover {
   background-color: #963310;
 }
-
-form {
+body form {
   margin-inline: auto;
   width: 60%;
   text-align: left;
@@ -171,10 +149,19 @@ form {
   background-color: #f2f2f2;
   padding: 20px;
 }
+body .wrapper {
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 20px;
+}
 
 /* Style_tabelle.css */
 table {
   border-collapse: collapse;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   max-width: 90%;
   margin: auto;
@@ -182,26 +169,18 @@ table {
   overflow: auto;
   /* border-width: 0px; */
 }
-
-th,
-td {
+table th,
+table td {
   border: 1px solid gray;
   text-align: left;
   padding: 8px;
-  white-space: nowrap;
 }
-
-th {
+table th {
   background-color: #bb3300;
   color: white;
   text-transform: uppercase;
 }
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
+table tr:nth-child(even) {
   background-color: white;
 }
 
@@ -209,8 +188,10 @@ tr:nth-child(even) {
   body {
     font-size: 90%;
   }
+  .wrapper {
+    width: auto;
+  }
 }
-
 @media (max-width: 550px) {
   body {
     font-size: 80%;

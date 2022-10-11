@@ -24,6 +24,12 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/favicon.ico">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+
+    <?php if (isset($robots)) : ?>
+        <meta name="robots" content="<?php echo $robots ?>">
+    <?php endif; ?>
 
     <title><?php echo $title ?></title>
 

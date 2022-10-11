@@ -67,6 +67,8 @@ function graphAndData(String $query)
     return $example_data;
 }
 
+$idToExclude = implode(",", array(1, 9));
+
 $pageNames = array();
 $result = Query("SELECT pageName FROM Visite_sito ORDER BY id");
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -93,8 +95,9 @@ $Illimitati = Query("SELECT
                     SUM(IF(hasPayed = 0, nLicences * priceEach, 0)) AS notPayed,
                     SUM(IF(hasPayed = 1, nLicences, 0)) AS numPayed,
                     SUM(IF(hasPayed = 1, nLicences * priceEach, 0)) AS payed
-                FROM Illimitata_data");
-$Demo = Query("SELECT  SUM(nLicences) AS demo FROM Demo_data")->fetch_array(MYSQLI_ASSOC)['demo'];
+                FROM Illimitata_data
+                WHERE idUser NOT IN ($idToExclude)");
+$Demo = Query("SELECT  SUM(nLicences) AS demo FROM Demo_data WHERE idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC)['demo'];
 
 $row = $Illimitati->fetch_array(MYSQLI_ASSOC);
 
@@ -122,13 +125,15 @@ for ($i = $fromYear; $i <= $currentYear; $i++) {
                                  SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed 
                              FROM Illimitata_data WHERE
                                  YEAR(dateRequest) = $i AND 
-                                 MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+                                 MONTH(dateRequest) = $j + 1 AND
+                                 idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC);
 
         $Demo = Query("SELECT
                            SUM(IF(hasPayed = 1, nLicences, 0)) AS reqDemo
                        FROM Demo_data WHERE
                            YEAR(dateRequest) = $i AND
-                           MONTH(dateRequest) = $j + 1")->fetch_array(MYSQLI_ASSOC);
+                           MONTH(dateRequest) = $j + 1 AND
+                           idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC);
 
         $example_data[] = array(
             $j + 1 . '-' . $i,
@@ -185,7 +190,7 @@ returndata(0, "Connection with MySQL database closed");
 <!DOCTYPE html>
 <html lang="it">
 
-<?php echo render('./template/site/head.php', array('title' => 'Tabella visite sito'), 1); ?>
+<?php echo render('./template/site/head.php', array('title' => 'Analytics', 'robots' => 'noindex'), 1); ?>
 
 <head>
     <style>
@@ -222,7 +227,7 @@ returndata(0, "Connection with MySQL database closed");
     <a href="/">
         <h1>Prospetto di calcolo</h1>
     </a>
-    <h3>Visite sito</h3>
+    <h3>Analytics</h3>
 
     <form action="" method="GET">
         <label for="fromYear">Anno di partenza visualizzazione:</label>

@@ -22,7 +22,7 @@ returndata(0, "Connection with MySQL database closed");
 <!DOCTYPE html>
 <html lang="it">
 
-<?php echo render('./template/site/head.php', array('title' => 'Tabella completa tutti gli utenti'), 1); ?>
+<?php echo render('./template/site/head.php', array('title' => 'Database', 'robots' => 'noindex'), 1); ?>
 
 <body>
     <a href="/">

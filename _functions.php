@@ -88,9 +88,10 @@ function updateInteractions(): bool
     }
 
     if (isset($_COOKIE['tokenAdmin']) && $_COOKIE['tokenAdmin'] == API_KEY) return FALSE;
+    if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])) return FALSE;
     if (Query("SELECT * FROM Visite_sito WHERE pageName = '$pageName' LIMIT 1")->num_rows == 0) return FALSE;
 
-    Query("UPDATE Visite_sito SET `$year` = JSON_SET(`$year`, '$[$month]', JSON_EXTRACT(`$year`, '$[$month]') + 1) WHERE pageName = '$pageName'");
+    Query("UPDATE Visite_sito SET `$year` = JSON_SET(`$year`, '$[$month]', CAST(JSON_EXTRACT(`$year`, '$[$month]') + 1 AS unsigned)) WHERE pageName = '$pageName'");
 
     return TRUE;
 }
@@ -126,7 +127,11 @@ function parseEmail(string $email): string
 
 function sendEmail(array $args, bool $throwException = TRUE): bool
 {
-    if ($throwException && !IS_DEV && !mail($args['email'], $args['subject'], $args['msg'], $args['headers'])) {
+    if (
+        $throwException
+        && !strpos(HOST_SITE, 'localhost')
+        && !mail($args['email'], $args['subject'], $args['msg'], $args['headers'])
+    ) {
         throw new Exception("Errore durante l'invio della email. Riprovare più tardi...");
     }
 

@@ -2,7 +2,7 @@
 
 define('HOST_SITE', 'https://' . $_SERVER['HTTP_HOST']);
 define('API_KEY', 12345);
-define('IS_DEV', 0);
+define('IS_DEV', 1);
 
 define('EMAIL', array(
     'MASTER'       => 'attestazioniaffitti@gmail.com',
