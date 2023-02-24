@@ -8,10 +8,10 @@ if ($login && isset($_POST["submit"])) {
 
     switch ($_POST["userType"]) {
         case 'demo':
-            $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, D.token as token FROM Utenti_prospetto as U JOIN Demo_data as D WHERE U.id = D.idUser GROUP BY U.email ORDER BY D.id");
+            $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, D.token as token FROM Utenti_prospetto as U JOIN Demo_data as D WHERE U.id = D.idUser AND D.nDownload = 0 GROUP BY U.email ORDER BY D.id");
             break;
         case 'illimitati':
-            $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, I.token as token FROM Utenti_prospetto as U JOIN Illimitata_data as I WHERE U.id = I.idUser GROUP BY U.email ORDER BY I.id");
+            $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, I.token as token FROM Utenti_prospetto as U JOIN Illimitata_data as I WHERE U.id = I.idUser AND I.nDownload = 0 GROUP BY U.email ORDER BY I.id");
             break;
         default:
             $logs[] = "Error";

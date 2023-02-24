@@ -5,6 +5,7 @@
 
     <meta name="author" content="Tommaso Bocchietti">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="<?php echo HOST_SITE, $_SERVER['REQUEST_URI'] ?>" />
 
     <meta name="description" content="Sito di vendita del software 'Prospetto di calcolo', realizzato da Tommaso Bocchietti per conto dell'associazione ConfediliziaComo.">
     <meta name="og:description" content="Sito di vendita del software 'Prospetto di calcolo', realizzato da Tommaso Bocchietti per conto dell'associazione ConfediliziaComo.">

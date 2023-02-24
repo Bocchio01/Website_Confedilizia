@@ -31,7 +31,7 @@ returndata(0, "Connection with MySQL database closed");
                         <li>Possibilità di stampare il prospetto in maniera ordinata e chiara.</li>
                     </ul>
                     <p>
-                        Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="/assets/pdf/examplePDF.pdf">Esempio PDF</a>.
+                        Se vuoi visualizzare un esempio di PDF stampabile generato automaticamente dal programma, clicca qui: <a href="/pdfViewer.php?pdf=examplePDF">Esempio PDF</a>.
                     </p>
                 </div>
                 <div style="text-align: center;">
@@ -41,7 +41,7 @@ returndata(0, "Connection with MySQL database closed");
 
             <h3>Ottieni il software:</h3>
             <ul>
-                <!-- <li><a href="/Richiesta_demo.php">Versione demo (Gratuita):</a> consente un utilizzo del software completo per 7 giorni.</li> -->
+                <li><a href="/Richiesta_demo.php">Versione demo (Gratuita):</a> consente un utilizzo del software completo per 7 giorni.</li>
                 <li><a href="/Richiesta_illimitata.php">Versione illimitata (Costo: €.<?php echo $swPrice; ?> oltre IVA):</a> consente un utilizzo del software completo per una durata illimitata ed eventuale assistenza tecnica.</li>
             </ul>
 

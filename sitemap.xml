@@ -3,7 +3,7 @@
 
   <url>
     <loc>https://attestazioniaffitti.altervista.org/Scelta_programma.php</loc>
-    <lastmod>2022-08-15</lastmod>
+    <lastmod>2023-02-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -17,7 +17,7 @@
 
   <url>
     <loc>https://attestazioniaffitti.altervista.org/Richiesta_illimitata.php</loc>
-    <lastmod>2022-08-15</lastmod>
+    <lastmod>2023-02-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -32,6 +32,13 @@
   <url>
     <loc>https://attestazioniaffitti.altervista.org/Download_illimitata.php</loc>
     <lastmod>2022-08-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://attestazioniaffitti.altervista.org/pdfViewer.php</loc>
+    <lastmod>2023-02-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -30,7 +30,6 @@ returndata(0, "Connection with MySQL database closed");
                 <a href="/">Clicca qui</a> per tornare alla home page del sito.
             </p>
 
-
         </main>
 
         <?php echo render('./template/site/footer.php', array()); ?>

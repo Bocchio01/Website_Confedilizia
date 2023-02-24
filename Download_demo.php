@@ -6,7 +6,7 @@ updateInteractions();
 
 if (isset($_POST["submit"])) {
     try {
-        addDownload("Demo", $_POST['token']);
+        addDownload("Demo", str_replace(".", "", trim($_POST['token'])));
         fileDownload(FILE_DOWNLOAD['DEMO']);
     } catch (Exception $e) {
         alert($e->getMessage());

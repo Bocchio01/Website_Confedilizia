@@ -40,6 +40,7 @@ returndata(0, "Connection with MySQL database closed");
                 <area href="/Richiesta_illimitata.php" coords="725,168,910,214" shape="rect">
                 <area href="/Download_demo.php" coords="400,272,585,317" shape="rect">
                 <area href="/Download_illimitata.php" coords="725,272,910,317" shape="rect">
+                <area href="/pdfViewer.php" coords="562,345,750,390" shape="rect">
             </map>
         </div>
 

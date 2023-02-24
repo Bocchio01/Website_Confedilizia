@@ -229,6 +229,7 @@ function addOrder(string $orderType, int $idUser, $args, $priceEach = PRICE)
 
 function addDownload(string $orderType, string $token): bool
 {
+    $token = trim(str_replace('.', '', $token));
     switch ($orderType) {
 
         case "Demo":
@@ -242,7 +243,7 @@ function addDownload(string $orderType, string $token): bool
             }
 
             $mysqltime = date("Y-m-d H:i:s");
-            Query("UPDATE Demo_data SET 
+            Query("UPDATE Demo_data SET
                     nDownload    = nDownload + 1,
                     dateDownload = JSON_ARRAY_APPEND(dateDownload, '$', '$mysqltime')
                 WHERE id = $row[id]");
@@ -261,7 +262,7 @@ function addDownload(string $orderType, string $token): bool
             }
 
             $mysqltime = date("Y-m-d H:i:s");
-            Query("UPDATE Illimitata_data SET 
+            Query("UPDATE Illimitata_data SET
                     nDownload    = nDownload + 1,
                     dateDownload = JSON_ARRAY_APPEND(dateDownload, '$', '$mysqltime')
                 WHERE id = $row[id]");
@@ -311,4 +312,11 @@ function alert(string $msg = 'Richiesta effettuata con successo! Controlla la tu
     } else {
         echo "<script type = 'text/javascript'>alert(`$msg`);</script>";
     }
+}
+
+function fileExists($url)
+{
+    $headers = @get_headers($url);
+    if (!$headers) return false;
+    return strpos($headers[0], '200 OK') !== false;
 }

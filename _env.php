@@ -1,6 +1,6 @@
 <?php
 
-define('HOST_SITE', 'https://' . $_SERVER['HTTP_HOST']);
+define('HOST_SITE', 'http://' . $_SERVER['HTTP_HOST']);
 define('API_KEY', 12345);
 define('IS_DEV', 1);
 
@@ -10,8 +10,8 @@ define('EMAIL', array(
 ));
 
 define('BANK_DATA', array(
-    'NAME'   => 'Credito Valtellinese',
-    'IBAN'   => 'IT38Q0521610901000000057790',
+    'NAME'   => 'Crédit Agricol',
+    'IBAN'   => 'IT32G0623010996000046769448',
     'CAUSAL' => 'Licenza prospetto di calcolo',
 ));
 

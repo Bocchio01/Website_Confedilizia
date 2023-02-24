@@ -6,7 +6,7 @@ updateInteractions();
 
 if (isset($_POST["submit"])) {
     try {
-        addDownload("Illimitata", $_POST['token']);
+        addDownload("Illimitata", str_replace(".", "", trim($_POST['token'])));
         fileDownload(FILE_DOWNLOAD['ILLIMITATO']);
     } catch (Exception $e) {
         alert($e->getMessage());
