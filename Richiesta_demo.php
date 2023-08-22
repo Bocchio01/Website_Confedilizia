@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
         );
 
         addUser($valueArray);
-        addOrder("Demo", getUserId($valueArray['email']), $valueArray);
+        addOrder("Demo", getUserId($valueArray['email']), $valueArray, 0);
 
         sendEmail($mailArray);
 

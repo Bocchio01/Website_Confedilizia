@@ -5,7 +5,7 @@ $sql = array();
 
 
 $sql[] = "CREATE TABLE IF NOT EXISTS Utenti_prospetto (
-    id               INT(4)               NOT NULL AUTO_INCREMENT, 
+    id               INT(4)               NOT NULL AUTO_INCREMENT,
     dateRegistration TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
     email            VARCHAR(127)         NOT NULL,
     nameCompany      VARCHAR(127)         NOT NULL,
@@ -13,6 +13,8 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Utenti_prospetto (
     codeVAT          VARCHAR(127) DEFAULT NULL,
     address          VARCHAR(255) DEFAULT NULL,
     phone            VARCHAR(127) DEFAULT NULL,
+    pcSerialNumber   JSON         DEFAULT ('[]'),
+    lastAccess       JSON         DEFAULT ('{}'),
 
     PRIMARY KEY (id),
     UNIQUE (email))
@@ -63,6 +65,15 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Illimitata_data (
     ENGINE=InnoDB";
 
 
+$sql[] = "CREATE TABLE IF NOT EXISTS Indici_prospetto (
+    id         INT(4)   NOT NULL AUTO_INCREMENT,
+    validFrom  DATE     NOT NULL,
+    indexValue FLOAT(5) NOT NULL,
+
+    PRIMARY KEY (id))
+    ENGINE=InnoDB";
+
+
 
 $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
 ('Scelta_programma'),
@@ -77,6 +88,11 @@ $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
 ('emailSender'),
 ('403'),
 ('404')";
+
+
+$sql[] = "INSERT INTO Indici_prospetto (validFrom, indexValue) VALUES
+('2020-10-01', 5.00),
+('2023-10-01', 10.00)";
 
 
 

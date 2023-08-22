@@ -6,7 +6,8 @@ updateInteractions();
 include_once "./_isAdmin.php";
 
 
-require_once './_lib/phplot-6.2.0/phplot.php';
+require_once __DIR__ . '/vendor/autoload.php';
+
 
 
 function DefaultGraph($data, $type = 'linepoints')
@@ -97,7 +98,7 @@ $Illimitati = Query("SELECT
                     SUM(IF(hasPayed = 1, nLicences * priceEach, 0)) AS payed
                 FROM Illimitata_data
                 WHERE idUser NOT IN ($idToExclude)");
-$Demo = Query("SELECT  SUM(nLicences) AS demo FROM Demo_data WHERE idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC)['demo'];
+$Demo = Query("SELECT SUM(nLicences) AS demo FROM Demo_data WHERE idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC)['demo'];
 
 $row = $Illimitati->fetch_array(MYSQLI_ASSOC);
 
@@ -121,10 +122,10 @@ for ($i = $fromYear; $i <= $currentYear; $i++) {
     for ($j = 0; $j < $nMonth; $j++) {
 
         $Illimitati = Query("SELECT
-                                 SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed, 
-                                 SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed 
+                                 SUM(IF(hasPayed = 1, nLicences, 0)) AS reqPayed,
+                                 SUM(IF(hasPayed = 0, nLicences, 0)) AS reqNotPayed
                              FROM Illimitata_data WHERE
-                                 YEAR(dateRequest) = $i AND 
+                                 YEAR(dateRequest) = $i AND
                                  MONTH(dateRequest) = $j + 1 AND
                                  idUser NOT IN ($idToExclude)")->fetch_array(MYSQLI_ASSOC);
 
@@ -179,6 +180,11 @@ if (!empty($byPageName)) {
         $graphOnly[] = $data;
     }
 }
+
+
+// TO BE IMPLEMENTED
+// Programm access by client
+// $example_data = graphAndData("SELECT JSON_ FROM Utenti_prospetto WHERE pcSerialNumber IS NOT []");
 
 
 

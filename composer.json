@@ -1,0 +1,15 @@
+{
+  "name": "bocchio/confedilizia_website",
+  "description": "Sales site for the 'Prospetto di calcolo' software, on behalf of ConfediliziaComo.",
+  "type": "project",
+  "require": {
+    "davefx/phplot": "^6.2"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bocchio01",
+      "email": "tommaso.bocchietti@gmail.com"
+    }
+  ]
+}

@@ -1,9 +1,7 @@
 .*
 **protected
+/vendor
 
 /_localFiles
-/_lib
 /_dumpDB
-/_fonts
 /_test
-/_old

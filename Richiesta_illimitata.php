@@ -36,7 +36,7 @@ if (isset($_POST["submit"])) {
 
         addUser($valueArray);
         updateUser($valueArray);
-        addOrder("Illimitata", getUserId($valueArray['email']), $valueArray);
+        addOrder("Illimitata", getUserId($valueArray['email']), $valueArray, PRICE);
 
         sendEmail($mailArray);
         sendEmail($mailArrayConfedilizia);

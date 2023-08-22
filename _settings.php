@@ -1,7 +1,7 @@
 <?php
 
-include_once "./_env.php";
-include_once "./_functions.php";
+require_once __DIR__ . "/_env.php";
+require_once __DIR__ . "/_functions.php";
 
 // error_reporting(IS_DEV ? E_ALL : 0);
 if (!IS_DEV) {

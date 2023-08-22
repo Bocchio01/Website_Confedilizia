@@ -7,7 +7,7 @@ include_once "./_isAdmin.php";
 
 
 $datas = array();
-$tables = array('Utenti_prospetto', 'Demo_data', 'Illimitata_data', 'Visite_sito');
+$tables = array('Utenti_prospetto', 'Demo_data', 'Illimitata_data', 'Visite_sito', 'Indici_prospetto');
 
 foreach ($tables as $table) {
     $datas[$table] = Query("SELECT * FROM $table");

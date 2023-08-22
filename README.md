@@ -22,8 +22,8 @@ Main improvements were:
 - Improved database structure;
 - Improved queries performance;
 - Breakdown of the code into more functions and template files;
-- Increased control over server configuration (.htacces files) to protect software from unauthorised download and hide private files;
-- Improved logging function to keep track of errors during queries or unauthorised requests to private files;
+- Increased control over server configuration (.htacces files) to protect software from unauthorized download and hide private files;
+- Improved logging function to keep track of errors during queries or unauthorized requests to private files;
 - Much more detailed and useful analytics page;
 - Completely rebuilt HTML and CSS from scratch, moving from the old style structure as a table element to a much more flexible and responsive design.
 

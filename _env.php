@@ -19,5 +19,5 @@ define('PRICE', 100);
 
 define('FILE_DOWNLOAD', array(
     'DEMO'       => "./protected/Prospetto_di_calcolo_demo.xlsm",
-    'ILLIMITATO' => "./protected/Prospetto_di_calcolo_illimitato.xlsm",
+    'ILLIMITATO' => "./protected/Prospetto_di_calcolo_illimitato.V3.xlsm",
 ));
