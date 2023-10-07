@@ -25,11 +25,11 @@ if (isset($_GET['addData'])) {
     header("Location: ./updateIndices.php");
 }
 
-$result = Query("SELECT * FROM Indici_prospetto");
+$result = Query("SELECT * FROM Indici_prospetto ORDER BY validFrom ASC");
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $row['validFrom'] = date('d/m/Y', strtotime($row['validFrom']));
-        $row['indexValue'] = number_format($row['indexValue'], 2, ',', '.');
+        $row['indexValue'] = number_format($row['indexValue'], 2);
         $indiciProspettoDatas[] = $row;
     }
 };

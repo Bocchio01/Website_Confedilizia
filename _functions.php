@@ -142,7 +142,10 @@ function sendEmail(array $args, bool $throwException = TRUE): bool
 
 function getUserId(string $email): int
 {
-    return (int) Query("SELECT id FROM Utenti_prospetto WHERE email = '$email'")->fetch_array(MYSQLI_ASSOC)['id'];
+    $result = Query("SELECT id FROM Utenti_prospetto WHERE email = '$email'")->fetch_array(MYSQLI_ASSOC);
+    if (empty($result)) return FALSE;
+
+    return (int) $result['id'];
 }
 
 

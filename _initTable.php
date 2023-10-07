@@ -13,8 +13,6 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Utenti_prospetto (
     codeVAT          VARCHAR(127) DEFAULT NULL,
     address          VARCHAR(255) DEFAULT NULL,
     phone            VARCHAR(127) DEFAULT NULL,
-    pcSerialNumber   JSON         DEFAULT ('[]'),
-    lastAccess       JSON         DEFAULT ('[]'),
 
     PRIMARY KEY (id),
     UNIQUE (email))
