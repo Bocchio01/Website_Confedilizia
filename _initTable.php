@@ -14,7 +14,7 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Utenti_prospetto (
     address          VARCHAR(255) DEFAULT NULL,
     phone            VARCHAR(127) DEFAULT NULL,
     pcSerialNumber   JSON         DEFAULT ('[]'),
-    lastAccess       JSON         DEFAULT ('{}'),
+    lastAccess       JSON         DEFAULT ('[]'),
 
     PRIMARY KEY (id),
     UNIQUE (email))
@@ -70,7 +70,8 @@ $sql[] = "CREATE TABLE IF NOT EXISTS Indici_prospetto (
     validFrom  DATE     NOT NULL,
     indexValue FLOAT(5) NOT NULL,
 
-    PRIMARY KEY (id))
+    PRIMARY KEY (id),
+    UNIQUE (validFrom))
     ENGINE=InnoDB";
 
 
@@ -82,6 +83,7 @@ $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
 ('Download_demo'),
 ('Download_illimitata'),
 ('Indice_controllo'),
+('Manutenzione'),
 ('licenseCheck'),
 ('database'),
 ('analytics'),
@@ -91,8 +93,8 @@ $sql[] = "INSERT INTO Visite_sito (pageName) VALUES
 
 
 $sql[] = "INSERT INTO Indici_prospetto (validFrom, indexValue) VALUES
-('2020-10-01', 5.00),
-('2023-10-01', 10.00)";
+('2020-10-01', 0.00),
+('2023-10-01', 11.68)";
 
 
 

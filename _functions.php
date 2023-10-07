@@ -5,8 +5,8 @@ function returndata(int $code = 0, string $log = null): void
     global $return_obj;
     $return_obj->Log[] = $log;
     $return_obj->Status = $code;
-    // echo json_encode($return_obj, JSON_PRETTY_PRINT);
     if (IS_DEV) {
+        echo json_encode($return_obj, JSON_PRETTY_PRINT);
         echo "<script>console.log(" . json_encode($return_obj) . ")</script>";
     }
 }

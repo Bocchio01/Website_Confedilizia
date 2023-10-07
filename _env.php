@@ -2,7 +2,8 @@
 
 define('HOST_SITE', 'http://' . $_SERVER['HTTP_HOST']);
 define('API_KEY', 12345);
-define('IS_DEV', 1);
+define('IS_DEV', 0);
+define('IS_MAINTENANCE', 0);
 
 define('EMAIL', array(
     'MASTER'       => 'attestazioniaffitti@gmail.com',
@@ -18,6 +19,6 @@ define('BANK_DATA', array(
 define('PRICE', 100);
 
 define('FILE_DOWNLOAD', array(
-    'DEMO'       => "./protected/Prospetto_di_calcolo_demo.xlsm",
-    'ILLIMITATO' => "./protected/Prospetto_di_calcolo_illimitato.V3.xlsm",
+    'DEMO'       => "./protected/Prospetto_di_calcolo_demo.V3.xlsm",
+    'ILLIMITATO' =>  "./protected/Prospetto_di_calcolo_illimitato.V3.xlsm",
 ));

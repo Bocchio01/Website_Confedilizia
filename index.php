@@ -13,5 +13,11 @@ if (
 	exit();
 }
 
+if (IS_MAINTENANCE) {
+	header("Location: ./Manutenzione.php");
+	exit();
+}
+
+
 header("Location: ./Scelta_programma.php");
 exit();

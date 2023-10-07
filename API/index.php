@@ -11,10 +11,9 @@ if ($result) {
     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         $return_obj->Data[] = array(
             $row['validFrom'],
-            $row['indexValue']
+            $row['indexValue'] / 100
         );
     }
-
 
     // Convert the data array to CSV format
     $csv_data = '';
@@ -27,23 +26,49 @@ if ($result) {
     returndata(1, "Error loading data", null);
 }
 
+logError($_GET);
 
 
-$date = date('m-Y');
-$userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : "";
-$pcSerialNumber = $_GET['pcSerialNumber'];
+if (isset($_GET['pcSerialNumber'])) {
+    $date = date('m-Y');
+    $userEmail = $_GET['userEmail'] ?? "";
+    $pcSerialNumber = trim($_GET['pcSerialNumber']);
 
 
-if ($userEmail != "") {
-    Query("UPDATE Utenti_prospetto
-            SET lastAccess=JSON_SET(lastAccess, '$.$date', JSON_EXTRACT(lastAccess, '$.$date') + 1),
+    if ($userEmail != "") {
+
+        $selectQuery = "SELECT JSON_EXTRACT(lastAccess, '$.\"$date\"') as date_value FROM Utenti_prospetto WHERE email = '$userEmail'";
+        $result = Query($selectQuery)->fetch_array(MYSQLI_ASSOC);
+
+        if ($result['date_value'] === null) {
+            $updateQuery = "UPDATE Utenti_prospetto
+            SET lastAccess = JSON_SET(lastAccess, '$.\"$date\"', 1),
             pcSerialNumber = JSON_ARRAY_APPEND(pcSerialNumber, '$', '$pcSerialNumber')
-        WHERE email = '$userEmail'");
-} else {
-    Query("UPDATE Utenti_prospetto
-    SET lastAccess=JSON_SET(lastAccess, '$.$date', JSON_EXTRACT(lastAccess, '$.$date') + 1)
-    WHERE JSON_CONTAINS(pcSerialNumber, '\"$pcSerialNumber\"')");
-}
+        WHERE email = '$userEmail'";
+        } else {
+            $updatedValue = intval($result['date_value']) + 1;
+            $updateQuery = "UPDATE Utenti_prospetto
+            SET lastAccess = JSON_SET(lastAccess, '$.\"$date\"', $updatedValue),
+            pcSerialNumber = JSON_ARRAY_APPEND(pcSerialNumber, '$', '$pcSerialNumber')
+        WHERE email = '$userEmail'";
+        }
+    } else {
+        $selectQuery = "SELECT JSON_EXTRACT(lastAccess, '$.\"$date\"') as date_value FROM Utenti_prospetto WHERE JSON_CONTAINS(pcSerialNumber, '\"$pcSerialNumber\"')";
+        $result = Query($selectQuery)->fetch_array(MYSQLI_ASSOC);
 
+        if ($result['date_value'] === null) {
+            $updateQuery = "UPDATE Utenti_prospetto
+            SET lastAccess = JSON_SET(lastAccess, '$.\"$date\"', 1)
+        WHERE JSON_CONTAINS(pcSerialNumber, '\"$pcSerialNumber\"')";
+        } else {
+            $updatedValue = intval($result['date_value']) + 1;
+            $updateQuery = "UPDATE Utenti_prospetto
+            SET lastAccess = JSON_SET(lastAccess, '$.\"$date\"', $updatedValue)
+        WHERE JSON_CONTAINS(pcSerialNumber, '\"$pcSerialNumber\"')";
+        }
+    }
+
+    Query($updateQuery);
+}
 
 $conn->close();

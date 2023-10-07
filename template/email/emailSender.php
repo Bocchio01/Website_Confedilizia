@@ -10,8 +10,7 @@
         L'aggiornamento contiene:
     </p>
     <ul>
-        <li>Migliorata compatibilità con sistemi operativi 'macOS'</li>
-        <li>Convalida dati per il valore del piano dell'unità abitativa</li>
+        <li>Rivalutazione fasce prospetto in base dell'indice ISTAT (come specificato nell'Accordo Territoriale del Comune di Como)</li>
     </ul>
     <p>
         Consigliamo fortemente di procede con l'aggiornamento, scaricando la nuova versione dal link sopra ed eliminando dal proprio dispositivo quella attualmente installata.
