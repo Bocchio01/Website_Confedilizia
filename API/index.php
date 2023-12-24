@@ -11,7 +11,7 @@ if ($result) {
     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         $return_obj->Data[] = array(
             $row['validFrom'],
-            $row['indexValue'] / 100
+            $row['indexValue']
         );
     }
 

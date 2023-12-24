@@ -10,10 +10,14 @@
         L'aggiornamento contiene:
     </p>
     <ul>
-        <li>Rivalutazione fasce prospetto in base dell'indice ISTAT (come specificato nell'Accordo Territoriale del Comune di Como)</li>
+        <li>Rivalutazione fasce prospetto in base all'indice ISTAT (come specificato nell'Accordo Territoriale del Comune di Como)</li>
     </ul>
     <p>
         Consigliamo fortemente di procede con l'aggiornamento, scaricando la nuova versione dal link sopra ed eliminando dal proprio dispositivo quella attualmente installata.
+        Si specifica che l'aggiornamento è disponibile solamente per macchine Windows.
+    </p>
+    <p>
+        In caso di problemi durante il download, si consiglia di seguire <a href="<?php echo HOST_SITE ?>/pdfViewer.php?pdf=guideInstallationSoftware">questa quida</a>.
     </p>
     <p>
         Grazie e buona giornata,<br>

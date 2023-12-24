@@ -8,7 +8,7 @@ if ($login && isset($_POST["submit"])) {
 
     switch ($_POST["userType"]) {
         case 'demo':
-            $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, D.token as token FROM Utenti_prospetto as U JOIN Demo_data as D WHERE U.id = D.idUser AND D.nDownload = 0 GROUP BY U.email ORDER BY D.id");
+            // $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, D.token as token FROM Utenti_prospetto as U JOIN Demo_data as D WHERE U.id = D.idUser AND D.nDownload = 0 GROUP BY U.email ORDER BY D.id");
             break;
         case 'illimitati':
             $data = Query("SELECT U.email as email, U.nameCompany as nameCompany, I.token as token FROM Utenti_prospetto as U JOIN Illimitata_data as I WHERE U.id = I.idUser AND I.nDownload = 0 GROUP BY U.email ORDER BY I.id");
@@ -95,7 +95,7 @@ returndata(0, "Connection with MySQL database closed");
                 <select name="userType" id="userType" required="required">
                     <option value=""></option>
                     <option value="demo">Utenti demo</option>
-                    <option value="illimitati">Utenti illimitati</option>
+                    <option value="illimitati" selected>Utenti illimitati</option>
                 </select>
                 <input name="submit" id="submit" type="submit" value="Invia l'email">
             </form>
@@ -106,7 +106,7 @@ returndata(0, "Connection with MySQL database closed");
                 </h3>
 
                 <pre class="wrapper" style="white-space: pre-wrap;">
-<?php foreach ($logs as $log) {
+                <?php foreach ($logs as $log) {
                     print_r($log);
                 } ?>
             </pre>
