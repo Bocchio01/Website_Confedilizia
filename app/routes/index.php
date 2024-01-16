@@ -10,9 +10,9 @@
 | you set here will be called when a 404 error is encountered
 |
 */
-// app()->set404(function() {
-// 	response()->page(ViewsPath("errors/404.html", false), 404);
-// });
+app()->set404(function() {
+    render('errors', ['error' => 404]);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +24,11 @@
 | you set here will be called when a 500 error is encountered
 |
 */
-// app()->setErrorHandler(function() {
-// 	response()->page(ViewsPath("errors/500.html", false), 500);
-// });
+app()->setErrorHandler(function($error) {
+    // echo "Error number ". $error . " has occured";
+    // TODO: get error number and render the correct error page
+    render('errors', ['error' => 500]);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,7 @@ app()->setNamespace('\App\Controllers');
 |--------------------------------------------------------------------------
 |
 | Leaf MVC automatically loads all files in the routes folder that
-| start with "_". We call these files route partials. An example
+| start with "_". We call these files route _components. An example
 | partial has been created for you.
 |
 | If you want to manually load routes, you can
@@ -54,3 +56,17 @@ app()->setNamespace('\App\Controllers');
 |
 */
 // require __DIR__ . '/custom-route.php';
+
+
+/*
+|--------------------------------------------------------------------------
+| Set up app down handler
+|--------------------------------------------------------------------------
+|
+| This allows you to set up a down page for your app (for maintenance).
+|
+*/
+
+app()->setDown(function () {
+    render('down');
+  });

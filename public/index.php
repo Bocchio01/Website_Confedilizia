@@ -66,7 +66,9 @@ if (php_sapi_name() === 'cli-server') {
 | as you've always used it.
 |
 */
+
 Leaf\View::attach(\Leaf\Blade::class);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +99,7 @@ Leaf\Core::loadApplicationConfig();
 |
 | **Uncomment the line below to use Leaf Db or Auth**
 */
-// \Leaf\Database::initDb();
+\Leaf\Database::initDb();
 
 /*
 |--------------------------------------------------------------------------

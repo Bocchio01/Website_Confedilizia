@@ -1,9 +1,34 @@
+# https://github.com/phanan/htaccess
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
+    AddHandler av-php8 .php
+
+    # # Deny Access to Hidden Files and Directories
+    # RewriteCond %{SCRIPT_FILENAME} -d [OR]
+    # RewriteCond %{SCRIPT_FILENAME} -f
+    # RewriteRule "(^|/)\." - [F]
+
+    # Deny Access to Backup and Source Files
+    <FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </FilesMatch>
+
+    # Force HTTPS
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteCond %{HTTPS} =off
+    RewriteRule ^ https://attestazioniaffitti.altervista.org%{REQUEST_URI} [L,R=301]
+
+    # Redirect from /confedilizia -> /
+    RedirectMatch 301 ^/confedilizia/(.*)$ /$1
+
+    # Redirect from /confediliziacomo -> /
+    RedirectMatch 301 ^/confediliziacomo/(.*)$ /$1
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -18,4 +43,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # # Custom Error Pages
+    # ErrorDocument 403 /403.php
+    # ErrorDocument 404 /404.php
+    # # ErrorDocument 500 /500.php
 </IfModule>

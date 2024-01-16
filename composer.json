@@ -28,11 +28,13 @@
         "leafs/cors": "*",
         "leafs/auth": "*",
         "leafs/db": "*",
-        "leafs/vite": "^0.1.0"
+        "leafs/vite": "^0.1.0",
+        "leafs/alchemy": "^1.0",
+        "leafs/form": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.16",
-        "leafs/alchemy": "^1.0"
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
